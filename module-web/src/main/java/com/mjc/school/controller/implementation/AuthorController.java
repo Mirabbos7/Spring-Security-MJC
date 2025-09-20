@@ -25,8 +25,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/v1/author", produces = "application/json")
 @Api(value = "Authors", description = "Operations for creating, updating, retrieving and deleting author in the application")
-@RequiredArgsConstructor
 @Validated
+@RequiredArgsConstructor
 public class AuthorController implements BaseController<AuthorDtoRequest, AuthorDtoResponse, Long> {
 
     private final AuthorServiceInterface authorService;
@@ -63,7 +63,6 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
         LinkHelper.addLinkToAuthors(model);
         return model;
     }
-
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -84,6 +83,7 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
 
     }
 
+
     @Override
     @PatchMapping(value = "/{id:\\d+}")
     @ResponseStatus(HttpStatus.OK)
@@ -103,6 +103,7 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
         return model;
     }
 
+
     @Override
     @DeleteMapping(value = "/{id:\\d+}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -119,4 +120,5 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
     public void deleteById(@PathVariable Long id) {
         authorService.deleteById(id);
     }
+
 }

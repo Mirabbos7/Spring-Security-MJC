@@ -2,8 +2,6 @@ package com.mjc.school.repository.model;
 
 import com.mjc.school.repository.interfaces.BaseEntity;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,8 +15,6 @@ import java.util.Objects;
 @Table(name = "comment")
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@EqualsAndHashCode
-@ToString
 public class CommentModel implements BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,4 +84,25 @@ public class CommentModel implements BaseEntity<Long> {
         this.newsModel = newsModel;
     }
 
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        CommentModel authorModel = (CommentModel) obj;
+        return id == authorModel.id &&
+                (content == authorModel.content || (content != null && content.equals(authorModel.getContent()))) &&
+                (created == authorModel.created || (created != null && created.equals(authorModel.getCreated()))) &&
+                (modified == authorModel.modified || (modified != null && modified.equals(authorModel.getModified())));
+    }
+
+    public int hashCode() {
+        return Objects.hash(id, content, created, modified);
+    }
+
+    public String toString() {
+        return "Comment's ID: " + id + ", content: " + content + ", created: " + created + ", modified: " + modified;
+    }
 }

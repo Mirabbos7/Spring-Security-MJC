@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/v1/comment", produces = "application/json")
 @RequiredArgsConstructor
+@RequestMapping(value = "api/v1/comment", produces = "application/json")
 @Api(value = "Comments", description = "Operations for creating, updating, retrieving and deleting comment in the application")
 public class CommentController implements BaseController<CommentDtoRequest, CommentDtoResponse, Long> {
     private final CommentServiceInterface commentService;
@@ -41,6 +41,7 @@ public class CommentController implements BaseController<CommentDtoRequest, Comm
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "created,dsc") String sortBy) {
         return this.commentService.readAll(page, size, sortBy);
+
     }
 
     @Override
@@ -58,6 +59,7 @@ public class CommentController implements BaseController<CommentDtoRequest, Comm
         LinkHelper.addLinkToComments(model);
         return model;
     }
+
 
     @Override
     @PostMapping

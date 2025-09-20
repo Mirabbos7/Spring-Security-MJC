@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/v1/news", produces = "application/json")
 @RequiredArgsConstructor
+@RequestMapping(value = "api/v1/news", produces = "application/json")
 @Api(value = "News", description = "Operations for creating, updating, retrieving and deleting news in the application")
 public class NewsController implements NewsControllerInterface<NewsDtoRequest, NewsDtoResponse, Long> {
 
@@ -154,6 +154,7 @@ public class NewsController implements NewsControllerInterface<NewsDtoRequest, N
         return tagModels;
 
     }
+
 
     @GetMapping(value = "/{newsId:\\d+}/author")
     @ResponseStatus(HttpStatus.OK)

@@ -1,9 +1,7 @@
 package com.mjc.school.repository.model;
 
 import com.mjc.school.repository.interfaces.BaseEntity;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,8 +17,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "author")
 @EntityListeners(AuditingEntityListener.class)
-@EqualsAndHashCode
-@ToString
 public class AuthorModel implements BaseEntity<Long> {
     @javax.persistence.Id
     @Id
@@ -95,5 +91,29 @@ public class AuthorModel implements BaseEntity<Long> {
 
 
     }
+
+
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        AuthorModel authorModel = (AuthorModel) obj;
+        return id == authorModel.id &&
+                (name == authorModel.name || (name != null && name.equals(authorModel.getName()))) &&
+                (createDate == authorModel.createDate || (createDate != null && createDate.equals(authorModel.getCreateDate()))) &&
+                (lastUpdateDate == authorModel.lastUpdateDate || (lastUpdateDate != null && lastUpdateDate.equals(authorModel.getLastUpdateDate())));
+    }
+
+    public int hashCode() {
+        return Objects.hash(id, name, createDate, lastUpdateDate);
+    }
+
+    public String toString() {
+        return "Author's ID: " + id + ", author's name: " + name + ", create date: " + createDate + ", last update date: " + lastUpdateDate;
+    }
+
 
 }
