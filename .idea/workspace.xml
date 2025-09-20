@@ -5,44 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8f9376d-06a5-4091-b573-6b1cac4f63d0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8b7a540-1e97-4ecd-8c7a-831e33e91af6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8b7a540-1e97-4ecd-8c7a-831e33e91af6/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8b7a540-1e97-4ecd-8c7a-831e33e91af6/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8b7a540-1e97-4ecd-8c7a-831e33e91af6/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8b7a540-1e97-4ecd-8c7a-831e33e91af6/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8b7a540-1e97-4ecd-8c7a-831e33e91af6/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8b7a540-1e97-4ecd-8c7a-831e33e91af6/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8b7a540-1e97-4ecd-8c7a-831e33e91af6/storage_v2/_src_/database/postgres.edMnLQ/schema/springSecurity.bYBhKg.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-main/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-main/src/main/java/com/mjc/school/main/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-main/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/AuthorModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/AuthorModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/CommentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/CommentModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/NewsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/NewsModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/TagModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/TagModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/UserModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/configuration/JwtFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/implementation/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/implementation/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/configuration/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/AuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/AuthorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/NewsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/NewsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/TagsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/TagsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/services/JwtTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/services/JwtTokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/services/UserDetailsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module-web/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/AuthorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/AuthorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/NewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/NewsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,12 +26,74 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/module-web">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/module-service">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/module-repository">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="stage3-module4-task" type="f1a62948:ProjectNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+                <item name="module-repository" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+                <item name="module-repository" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+                <item name="module-service" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+                <item name="module-service" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+                <item name="module-web" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Gradle-app-template" type="f1a62948:ProjectNode" />
+                <item name="module-web" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
             </expand>
             <select />
@@ -93,6 +124,7 @@
   "keyToString": {
     "Gradle.Build Authentication-Spring-Security-task.executor": "Run",
     "Gradle.Build gradle-app-template.executor": "Run",
+    "Gradle.gradle-app-template [clean].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -118,7 +150,29 @@
     ]
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.Main">
+    <configuration name="gradle-app-template [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Gradle-app-template.module-web.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.mjc.school.controller.Main" />
@@ -126,6 +180,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.gradle-app-template [clean]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -145,6 +204,7 @@
       <workItem from="1758298740568" duration="2470000" />
       <workItem from="1758308126214" duration="4762000" />
       <workItem from="1758382445390" duration="3760000" />
+      <workItem from="1758387655882" duration="2974000" />
     </task>
     <servers />
   </component>

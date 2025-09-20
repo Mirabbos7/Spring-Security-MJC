@@ -84,6 +84,14 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
+
+    @Transactional
+    public void promoteToAdmin(Long id){
+
+        var user = userRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User with such id was not found!"));
+        user.setRole(Role.ROLE_ADMIN);
+        userRepository.save(user);
+    }
 }
 
 
