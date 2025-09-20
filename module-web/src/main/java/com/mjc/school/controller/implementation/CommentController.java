@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -20,14 +21,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/v1/comment", produces = "application/json")
+@RequiredArgsConstructor
 @Api(value = "Comments", description = "Operations for creating, updating, retrieving and deleting comment in the application")
 public class CommentController implements BaseController<CommentDtoRequest, CommentDtoResponse, Long> {
     private final CommentServiceInterface commentService;
-
-    @Autowired
-    public CommentController(CommentServiceInterface commentService) {
-        this.commentService = commentService;
-    }
 
     @Override
     @GetMapping
@@ -44,7 +41,6 @@ public class CommentController implements BaseController<CommentDtoRequest, Comm
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "created,dsc") String sortBy) {
         return this.commentService.readAll(page, size, sortBy);
-
     }
 
     @Override
@@ -62,7 +58,6 @@ public class CommentController implements BaseController<CommentDtoRequest, Comm
         LinkHelper.addLinkToComments(model);
         return model;
     }
-
 
     @Override
     @PostMapping

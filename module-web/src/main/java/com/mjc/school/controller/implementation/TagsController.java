@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -20,15 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "api/v1/tag", produces = "application/json")
 @Api(value = "Tags", description = "Operations for creating, updating, retrieving and deleting tag in the application")
 public class TagsController implements BaseController<TagDtoRequest, TagDtoResponse, Long> {
-    private TagServiceInterface tagsService;
 
-    @Autowired
-    public TagsController(TagServiceInterface tagsService) {
-        this.tagsService = tagsService;
-    }
+    private final TagServiceInterface tagsService;
 
     @Override
     @GetMapping

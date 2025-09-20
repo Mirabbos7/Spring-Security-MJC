@@ -2,6 +2,8 @@ package com.mjc.school.repository.model;
 
 import com.mjc.school.repository.interfaces.BaseEntity;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,6 +20,8 @@ import java.util.Objects;
 @Table(name = "news")
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@EqualsAndHashCode
+@ToString
 public class NewsModel implements BaseEntity<Long>, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -100,32 +104,6 @@ public class NewsModel implements BaseEntity<Long>, Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-        NewsModel newsModel = (NewsModel) obj;
-        return id == newsModel.id &&
-                (title == newsModel.title || (title != null && title.equals(newsModel.getTitle()))) &&
-                (content == newsModel.content || (content != null && content.equals(newsModel.getContent()))) &&
-                (createDate == newsModel.createDate || (createDate != null && createDate.equals(newsModel.getCreateDate()))) &&
-                (lastUpdateDate == newsModel.lastUpdateDate || (lastUpdateDate != null && lastUpdateDate.equals(newsModel.getLastUpdateDate()))
-                );
-    }
-
-    public int hashCode() {
-        return Objects.hash(id, title, content, createDate, lastUpdateDate);
-    }
-
-    public String toString() {
-        return "news ID: " + id + ", title: " + title + ", content: " + content + ", create date: " + createDate + ", last update date: " + lastUpdateDate;
-    }
-
 
     public void setTags(List<TagModel> tags) {
         this.tags = tags;

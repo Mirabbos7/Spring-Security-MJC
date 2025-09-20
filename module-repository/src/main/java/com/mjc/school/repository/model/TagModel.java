@@ -1,6 +1,8 @@
 package com.mjc.school.repository.model;
 
 import com.mjc.school.repository.interfaces.BaseEntity;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tags")
+@EqualsAndHashCode
+@ToString
 public class TagModel implements BaseEntity<Long> {
 
     @Id
@@ -48,25 +52,5 @@ public class TagModel implements BaseEntity<Long> {
 
     public void setNews(List<NewsModel> news) {
         this.news = news;
-    }
-
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-        TagModel tagModel = (TagModel) obj;
-        return id == tagModel.id &&
-                (name == tagModel.name || (name != null && name.equals(tagModel.getName())));
-    }
-
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
-
-    public String toString() {
-        return "Tag's ID: " + id + ", tag's name: " + name;
     }
 }

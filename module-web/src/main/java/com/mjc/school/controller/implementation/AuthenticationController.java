@@ -3,7 +3,7 @@ package com.mjc.school.controller.implementation;
 import com.mjc.school.service.dtoForUser.JwtAuthenticationResponse;
 import com.mjc.school.service.dtoForUser.SignInRequest;
 import com.mjc.school.service.dtoForUser.SignUpRequest;
-import com.mjc.school.service.services.UserService;
+import com.mjc.school.service.services.UserDetailsServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @RequestMapping(produces = "application/json")
 @RequiredArgsConstructor
 public class AuthenticationController {
-    private final UserService userService;
+    private final UserDetailsServiceImpl userService;
 
 
     @ApiOperation(value = "User registration", response = JwtAuthenticationResponse.class)

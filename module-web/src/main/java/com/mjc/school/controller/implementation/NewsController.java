@@ -10,6 +10,7 @@ import com.mjc.school.service.interfaces.CommentServiceInterface;
 import com.mjc.school.service.interfaces.NewsServiceInterface;
 import com.mjc.school.service.interfaces.TagServiceInterface;
 import io.swagger.annotations.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/v1/news", produces = "application/json")
+@RequiredArgsConstructor
 @Api(value = "News", description = "Operations for creating, updating, retrieving and deleting news in the application")
 public class NewsController implements NewsControllerInterface<NewsDtoRequest, NewsDtoResponse, Long> {
 
@@ -26,13 +28,6 @@ public class NewsController implements NewsControllerInterface<NewsDtoRequest, N
     private final AuthorServiceInterface authorService;
     private final TagServiceInterface tagService;
     private final CommentServiceInterface commentService;
-
-    public NewsController(NewsServiceInterface newsService, AuthorServiceInterface authorService, TagServiceInterface tagService, CommentServiceInterface commentService) {
-        this.newsService = newsService;
-        this.authorService = authorService;
-        this.tagService = tagService;
-        this.commentService = commentService;
-    }
 
     @GetMapping
     @Override
@@ -159,7 +154,6 @@ public class NewsController implements NewsControllerInterface<NewsDtoRequest, N
         return tagModels;
 
     }
-
 
     @GetMapping(value = "/{newsId:\\d+}/author")
     @ResponseStatus(HttpStatus.OK)
