@@ -1,7 +1,7 @@
 package com.mjc.school.service.implementation;
 
-import com.mjc.school.repository.implementation.TagRepository;
-import com.mjc.school.repository.model.TagModel;
+import com.mjc.school.implementation.TagRepository;
+import com.mjc.school.model.Tag;
 import com.mjc.school.service.dto.TagDtoRequest;
 import com.mjc.school.service.dto.TagDtoResponse;
 import com.mjc.school.service.exceptions.ElementNotFoundException;
@@ -28,10 +28,8 @@ import static com.mjc.school.service.exceptions.ErrorCodes.NO_TAG_WITH_PROVIDED_
 public class TagsService implements TagServiceInterface {
     private final TagRepository tagsRepository;
     private final TagMapper tagMapper;
-
     private CustomValidator customValidator;
 
-    @Autowired
     public TagsService(TagRepository tagsRepository, TagMapper tagMapper, CustomValidator customValidator) {
         this.tagsRepository = tagsRepository;
         this.tagMapper = tagMapper;
@@ -51,7 +49,7 @@ public class TagsService implements TagServiceInterface {
     @Override
     @Transactional(readOnly = true)
     public TagDtoResponse readById(Long id) {
-        Optional<TagModel> opt = tagsRepository.readById(id);
+        Optional<Tag> opt = tagsRepository.readById(id);
         return opt.map(tagMapper::ModelTagsToDto).orElseThrow(() -> new ElementNotFoundException(String.format(NO_TAG_WITH_PROVIDED_ID.getErrorMessage(), id)));
 
     }
@@ -63,7 +61,7 @@ public class TagsService implements TagServiceInterface {
         if (tagsRepository.readTagByName(createRequest.name()).isPresent()) {
             throw new ValidatorException(String.format(NOT_UNIQUE_TAGS_NAME.getErrorMessage(), createRequest.name()));
         }
-        TagModel tagModel = tagMapper.DtoTagsToModel(createRequest);
+        Tag tagModel = tagMapper.DtoTagsToModel(createRequest);
         return tagMapper.ModelTagsToDto(tagsRepository.create(tagModel));
     }
 
@@ -75,7 +73,7 @@ public class TagsService implements TagServiceInterface {
             if (tagsRepository.readTagByName(updateRequest.name()).isPresent()) {
                 throw new ValidatorException(String.format(NOT_UNIQUE_TAGS_NAME.getErrorMessage(), updateRequest.name()));
             }
-            TagModel tagModel = tagMapper.DtoTagsToModel(updateRequest);
+            Tag tagModel = tagMapper.DtoTagsToModel(updateRequest);
             tagModel.setId(id);
             return tagMapper.ModelTagsToDto(tagsRepository.update(tagModel));
         } else {
@@ -96,12 +94,11 @@ public class TagsService implements TagServiceInterface {
 
     public List<TagDtoResponse> readListOfTagsByNewsId(Long newsId) {
         if (newsId != null && newsId >= 0) {
-           try {
-               return tagMapper.listModelToDtoList(tagsRepository.readListOfTagsByNewsId(newsId));
-           }
-           catch (Exception e) {
-               throw new ElementNotFoundException(String.format(NO_TAGS_FOR_NEWS_ID.getErrorMessage(), newsId));
-           }
+            try {
+                return tagMapper.listModelToDtoList(tagsRepository.readListOfTagsByNewsId(newsId));
+            } catch (Exception e) {
+                throw new ElementNotFoundException(String.format(NO_TAGS_FOR_NEWS_ID.getErrorMessage(), newsId));
+            }
         } else {
             throw new ElementNotFoundException(String.format(NO_NEWS_WITH_PROVIDED_ID.getErrorMessage(), newsId));
 

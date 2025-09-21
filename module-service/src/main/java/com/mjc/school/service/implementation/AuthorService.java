@@ -1,8 +1,8 @@
 package com.mjc.school.service.implementation;
 
 
-import com.mjc.school.repository.implementation.AuthorRepository;
-import com.mjc.school.repository.model.AuthorModel;
+import com.mjc.school.implementation.AuthorRepository;
+import com.mjc.school.model.Author;
 import com.mjc.school.service.dto.AuthorDtoRequest;
 import com.mjc.school.service.dto.AuthorDtoResponse;
 import com.mjc.school.service.exceptions.ElementNotFoundException;
@@ -31,13 +31,10 @@ public class AuthorService implements AuthorServiceInterface {
     private final AuthorMapper authorMapper;
     private CustomValidator customValidator;
 
-
-    @Autowired
     public AuthorService(AuthorRepository authorRepository, AuthorMapper authorMapper, CustomValidator customValidator) {
         this.authorRepository = authorRepository;
         this.authorMapper = authorMapper;
         this.customValidator = customValidator;
-
     }
 
     @Override
@@ -54,7 +51,7 @@ public class AuthorService implements AuthorServiceInterface {
     @Override
     @Transactional(readOnly = true)
     public AuthorDtoResponse readById(Long id) {
-        Optional<AuthorModel> opt = authorRepository.readById(id);
+        Optional<Author> opt = authorRepository.readById(id);
         return opt.map(authorMapper::ModelAuthorToDTO).orElseThrow(() -> new ElementNotFoundException(String.format(NO_AUTHOR_WITH_PROVIDED_ID.getErrorMessage(), id)));
     }
 
@@ -65,7 +62,7 @@ public class AuthorService implements AuthorServiceInterface {
         if (authorRepository.readAuthorByName(createRequest.name()).isPresent()) {
             throw new ValidatorException(String.format(NOT_UNIQUE_AUTHOR_NAME.getErrorMessage(), createRequest.name()));
         }
-        AuthorModel authorModel = authorMapper.DtoAuthorToModel(createRequest);
+        Author authorModel = authorMapper.DtoAuthorToModel(createRequest);
 
         return authorMapper.ModelAuthorToDTO(authorRepository.create(authorModel));
 
@@ -80,7 +77,7 @@ public class AuthorService implements AuthorServiceInterface {
             if (authorRepository.readAuthorByName(updateRequest.name()).isPresent()) {
                 throw new ValidatorException(String.format(NOT_UNIQUE_AUTHOR_NAME.getErrorMessage(), updateRequest.name()));
             }
-            AuthorModel authorModel = authorMapper.DtoAuthorToModel(updateRequest);
+            Author authorModel = authorMapper.DtoAuthorToModel(updateRequest);
             authorModel.setId(id);
             return authorMapper.ModelAuthorToDTO(authorRepository.update(authorModel));
         } else {

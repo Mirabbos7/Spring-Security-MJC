@@ -1,12 +1,12 @@
 package com.mjc.school.service.implementation;
 
 
-import com.mjc.school.repository.implementation.CommentRepository;
+import com.mjc.school.implementation.CommentRepository;
 
-import com.mjc.school.repository.implementation.NewsRepository;
-import com.mjc.school.repository.model.CommentModel;
+import com.mjc.school.implementation.NewsRepository;
+import com.mjc.school.model.Comment;
 
-import com.mjc.school.repository.model.NewsModel;
+import com.mjc.school.model.News;
 import com.mjc.school.service.dto.CommentDtoRequest;
 import com.mjc.school.service.dto.CommentDtoResponse;
 import com.mjc.school.service.exceptions.ElementNotFoundException;
@@ -35,7 +35,6 @@ public class CommentService implements CommentServiceInterface {
     private final NewsRepository newsRepository;
     private CustomValidator customValidator;
 
-    @Autowired
     public CommentService(CommentRepository commentRepository, CommentMapper commentMapper, NewsRepository newsRepository, CustomValidator customValidator) {
         this.commentRepository = commentRepository;
         this.commentMapper = commentMapper;
@@ -56,7 +55,7 @@ public class CommentService implements CommentServiceInterface {
     @Override
     @Transactional(readOnly = true)
     public CommentDtoResponse readById(Long id) {
-        Optional<CommentModel> opt = commentRepository.readById(id);
+        Optional<Comment> opt = commentRepository.readById(id);
         return opt.map(commentMapper::ModelCommentToDto).orElseThrow(() -> new ElementNotFoundException(String.format(NO_COMMENT_WITH_PROVIDED_ID.getErrorMessage(), id)));
 
     }
@@ -65,10 +64,10 @@ public class CommentService implements CommentServiceInterface {
     @Transactional
     public CommentDtoResponse create(CommentDtoRequest createRequest) {
         customValidator.validateComment(createRequest);
-        CommentModel commentModel = commentMapper.DtoCommentToModel(createRequest);
-        NewsModel newsModel = newsRepository.readById(createRequest.newsId()).get();
+        Comment commentModel = commentMapper.DtoCommentToModel(createRequest);
+        News newsModel = newsRepository.readById(createRequest.newsId()).get();
         commentModel.setNewsModel(newsModel);
-        CommentModel createCommentModel = commentRepository.create(commentModel);
+        Comment createCommentModel = commentRepository.create(commentModel);
         newsModel.addComment(createCommentModel);
         return commentMapper.ModelCommentToDto(createCommentModel);
     }
@@ -78,7 +77,7 @@ public class CommentService implements CommentServiceInterface {
     public CommentDtoResponse update(Long id, CommentDtoRequest updateRequest) {
         if (commentRepository.existById(id)) {
             customValidator.validateComment(updateRequest);
-            CommentModel commentModel = commentMapper.DtoCommentToModel(updateRequest);
+            Comment commentModel = commentMapper.DtoCommentToModel(updateRequest);
             commentModel.setId(id);
             return commentMapper.ModelCommentToDto(commentRepository.update(commentModel));
         } else {

@@ -1,6 +1,6 @@
-package com.mjc.school.repository.model;
+package com.mjc.school.model;
 
-import com.mjc.school.repository.interfaces.BaseEntity;
+import com.mjc.school.interfaces.BaseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -18,7 +18,7 @@ import java.util.Objects;
 @Table(name = "news")
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class NewsModel implements BaseEntity<Long>, Serializable {
+public class News implements BaseEntity<Long>, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -36,19 +36,19 @@ public class NewsModel implements BaseEntity<Long>, Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
-    private AuthorModel authorModel;
+    private Author authorModel;
 
     @OneToMany(mappedBy = "newsModel", cascade = CascadeType.REMOVE)
-    private List<CommentModel> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tags_of_news", joinColumns = @JoinColumn(name = "news_id"), inverseJoinColumns = @JoinColumn(name = "tags_id"))
-    private List<TagModel> tags = new ArrayList<>();
+    private List<Tag> tags = new ArrayList<>();
 
-    public NewsModel() {
+    public News() {
 
     }
-    public NewsModel(Long id, String title, String content, AuthorModel authorModel) {
+    public News(Long id, String title, String content, Author authorModel) {
 
     }
 
@@ -109,7 +109,7 @@ public class NewsModel implements BaseEntity<Long>, Serializable {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        NewsModel newsModel = (NewsModel) obj;
+        News newsModel = (News) obj;
         return id == newsModel.id &&
                 (title == newsModel.title || (title != null && title.equals(newsModel.getTitle()))) &&
                 (content == newsModel.content || (content != null && content.equals(newsModel.getContent()))) &&
@@ -127,31 +127,31 @@ public class NewsModel implements BaseEntity<Long>, Serializable {
     }
 
 
-    public void setTags(List<TagModel> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 
-    public List<TagModel> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public AuthorModel getAuthorModel() {
+    public Author getAuthorModel() {
         return authorModel;
     }
 
-    public void setAuthorModel(AuthorModel authorModel) {
+    public void setAuthorModel(Author authorModel) {
         this.authorModel = authorModel;
     }
 
-    public List<CommentModel> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentModel> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
-    public void addComment(CommentModel commentModel) {
+    public void addComment(Comment commentModel) {
         comments.add(commentModel);
     }
 }

@@ -63,6 +63,7 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
         LinkHelper.addLinkToAuthors(model);
         return model;
     }
+
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -85,7 +86,7 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
 
 
     @Override
-    @PatchMapping(value = "/{id:\\d+}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Update an author", response = AuthorDtoResponse.class)
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
@@ -105,10 +106,10 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
 
 
     @Override
-    @DeleteMapping(value = "/{id:\\d+}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation(value = "Delete author by ID")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Successfully deleted author by ID"),
             @ApiResponse(code = 400, message = "Invalid ID supplied"),

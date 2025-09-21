@@ -1,18 +1,19 @@
-plugins{
+plugins {
     id 'java-library'
     id 'org.springframework.boot' version '2.7.7'
 }
 
-dependencies {
-    implementation 'org.projectlombok:lombok:1.18.26'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.7'
-
-
-
-
-
+ext {
+    lombokVersion = '1.18.26'
+    springBootVersion = '2.7.7'
 }
+
+dependencies {
+    implementation group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
+}
+
 bootJar {
     enabled = false
 }

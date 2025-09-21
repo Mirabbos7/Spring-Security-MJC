@@ -1,4 +1,4 @@
-package com.mjc.school.repository.interfaces;
+package com.mjc.school.interfaces;
 
 public interface BaseEntity<K> {
 

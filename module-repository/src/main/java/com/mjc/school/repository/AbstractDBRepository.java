@@ -1,8 +1,8 @@
-package com.mjc.school.repository.implementation;
+package com.mjc.school.repository;
 
 
-import com.mjc.school.repository.interfaces.BaseRepository;
-import com.mjc.school.repository.interfaces.BaseEntity;
+import com.mjc.school.interfaces.BaseRepository;
+import com.mjc.school.interfaces.BaseEntity;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,9 +21,9 @@ public abstract class AbstractDBRepository<T extends BaseEntity<K>, K> implement
     private final Class<T> entityClass;
     private final Class<K> idClass;
 
-    abstract void update(T prevState, T nextState);
+    public abstract void update(T prevState, T nextState);
 
-    protected AbstractDBRepository() {
+    public AbstractDBRepository() {
         ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
         entityClass = (Class<T>) type.getActualTypeArguments()[0];
         idClass = (Class<K>) type.getActualTypeArguments()[1];

@@ -1,6 +1,6 @@
-package com.mjc.school.repository.model;
+package com.mjc.school.model;
 
-import com.mjc.school.repository.interfaces.BaseEntity;
+import com.mjc.school.interfaces.BaseEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tags")
-public class TagModel implements BaseEntity<Long> {
+public class Tag implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +20,11 @@ public class TagModel implements BaseEntity<Long> {
     private String name;
 
     @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
-    private List<NewsModel> news = new ArrayList<>();
+    private List<News> news = new ArrayList<>();
 
-    public TagModel() {
+    public Tag() {
     }
-    public TagModel(String name) {}
+    public Tag(String name) {}
 
     public void setId(Long id) {
         this.id = id;
@@ -42,11 +42,11 @@ public class TagModel implements BaseEntity<Long> {
         return name;
     }
 
-    public List<NewsModel> getNews() {
+    public List<News> getNews() {
         return news;
     }
 
-    public void setNews(List<NewsModel> news) {
+    public void setNews(List<News> news) {
         this.news = news;
     }
 
@@ -57,7 +57,7 @@ public class TagModel implements BaseEntity<Long> {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        TagModel tagModel = (TagModel) obj;
+        Tag tagModel = (Tag) obj;
         return id == tagModel.id &&
                 (name == tagModel.name || (name != null && name.equals(tagModel.getName())));
     }

@@ -1,6 +1,6 @@
-package com.mjc.school.repository.model;
+package com.mjc.school.model;
 
-import com.mjc.school.repository.interfaces.BaseEntity;
+import com.mjc.school.interfaces.BaseEntity;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -17,7 +17,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "author")
 @EntityListeners(AuditingEntityListener.class)
-public class AuthorModel implements BaseEntity<Long> {
+public class Author implements BaseEntity<Long> {
     @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,13 +39,13 @@ public class AuthorModel implements BaseEntity<Long> {
     private LocalDateTime lastUpdateDate;
 
     @OneToMany(mappedBy = "authorModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<NewsModel> newsModelListWithId = new ArrayList<>();
+    private List<News> newsModelListWithId = new ArrayList<>();
 
 
-    public AuthorModel() {
+    public Author() {
     }
 
-    public AuthorModel(Long id, String name, LocalDateTime createDate, LocalDateTime lastUpdateDate) {
+    public Author(Long id, String name, LocalDateTime createDate, LocalDateTime lastUpdateDate) {
         this.id = id;
         this.name = name;
         this.createDate = createDate;
@@ -82,11 +82,11 @@ public class AuthorModel implements BaseEntity<Long> {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-    public List<NewsModel> getNewsModelListWithId() {
+    public List<News> getNewsModelListWithId() {
         return newsModelListWithId;
     }
 
-    public void setNewsModelListWithId(List<NewsModel> newsModelListWithId) {
+    public void setNewsModelListWithId(List<News> newsModelListWithId) {
         this.newsModelListWithId = newsModelListWithId;
 
 
@@ -100,7 +100,7 @@ public class AuthorModel implements BaseEntity<Long> {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        AuthorModel authorModel = (AuthorModel) obj;
+        Author authorModel = (Author) obj;
         return id == authorModel.id &&
                 (name == authorModel.name || (name != null && name.equals(authorModel.getName()))) &&
                 (createDate == authorModel.createDate || (createDate != null && createDate.equals(authorModel.getCreateDate()))) &&

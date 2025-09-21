@@ -1,8 +1,8 @@
 package com.mjc.school.service.services;
 
-import com.mjc.school.repository.implementation.UserRepository;
-import com.mjc.school.repository.model.Role;
-import com.mjc.school.repository.model.UserModel;
+import com.mjc.school.repository.UserRepository;
+import com.mjc.school.model.Role;
+import com.mjc.school.model.User;
 import com.mjc.school.service.dtoForUser.JwtAuthenticationResponse;
 import com.mjc.school.service.dtoForUser.SignInRequest;
 import com.mjc.school.service.dtoForUser.SignUpRequest;
@@ -23,7 +23,6 @@ public class UserService implements UserDetailsService {
     private final JwtTokenService jwtTokenService;
     private final AuthenticationManager authenticationManager;
 
-    @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenService jwtTokenService, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -32,12 +31,12 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserModel save(UserModel userModel) {
+    public User save(User userModel) {
         return userRepository.save(userModel);
     }
 
     @Transactional
-    public UserModel create(UserModel userModel) {
+    public User create(User userModel) {
         if (userRepository.existsByUsername(userModel.getUsername())) {
             throw new IllegalArgumentException("User with the same name already exists");
         }
@@ -57,7 +56,7 @@ public class UserService implements UserDetailsService {
         if (userRepository.findByUsername(request.username()).isPresent()) {
             throw new UsernameNotFoundException("User " + request.username() + " already exist");
         }
-        var userModel = UserModel.builder()
+        var userModel = User.builder()
                 .username(request.username())
                 .password(encodedPassword)
                 .role(Role.ROLE_USER)
@@ -74,7 +73,7 @@ public class UserService implements UserDetailsService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.username(), request.password()));
         System.out.println("Authenticating user: " + request.username());
-        UserModel user = userRepository.findByUsername(request.username()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        User user = userRepository.findByUsername(request.username()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         var jwt = jwtTokenService.generateToken(user);
         return new JwtAuthenticationResponse(jwt);
     }

@@ -1,4 +1,4 @@
-package com.mjc.school.repository.interfaces;
+package com.mjc.school.interfaces;
 
 
 import java.util.List;

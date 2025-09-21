@@ -1,6 +1,6 @@
 package com.mjc.school.service.services;
 
-import com.mjc.school.repository.model.UserModel;
+import com.mjc.school.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
@@ -17,7 +17,6 @@ import java.util.Map;
 public class JwtTokenService implements Serializable {
     public static final long JWT_TOKEN_VALIDITY = 1 * 60 * 60;
     private final String SECRET_KEY = "secret";
-
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
@@ -49,7 +48,7 @@ public class JwtTokenService implements Serializable {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        if (userDetails instanceof UserModel userModelModelDetails) {
+        if (userDetails instanceof User userModelModelDetails) {
             claims.put("id", userModelModelDetails.getId());
             claims.put("role", userModelModelDetails.getRole());
         }

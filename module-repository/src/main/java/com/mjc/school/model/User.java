@@ -1,4 +1,4 @@
-package com.mjc.school.repository.model;
+package com.mjc.school.model;
 
 
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class UserModel implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

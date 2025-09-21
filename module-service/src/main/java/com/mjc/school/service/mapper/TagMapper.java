@@ -1,6 +1,6 @@
 package com.mjc.school.service.mapper;
 
-import com.mjc.school.repository.model.TagModel;
+import com.mjc.school.model.Tag;
 import com.mjc.school.service.dto.TagDtoRequest;
 import com.mjc.school.service.dto.TagDtoResponse;
 import org.mapstruct.Mapper;
@@ -13,9 +13,9 @@ import java.util.List;
 public interface TagMapper {
     @Mappings(value = {@Mapping(target = "news", ignore = true),
             @Mapping(target = "id", ignore = true)})
-    TagModel DtoTagsToModel(TagDtoRequest tagDtoRequest);
+    Tag DtoTagsToModel(TagDtoRequest tagDtoRequest);
 
-    List<TagDtoResponse> listModelToDtoList(List<TagModel> tags);
+    List<TagDtoResponse> listModelToDtoList(List<Tag> tags);
 
-    TagDtoResponse ModelTagsToDto(TagModel tagModel);
+    TagDtoResponse ModelTagsToDto(Tag tagModel);
 }

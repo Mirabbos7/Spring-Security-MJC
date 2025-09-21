@@ -1,8 +1,9 @@
-package com.mjc.school.repository.implementation;
+package com.mjc.school.implementation;
 
-import com.mjc.school.repository.model.AuthorModel;
-import com.mjc.school.repository.model.NewsModel;
-import com.mjc.school.repository.model.TagModel;
+import com.mjc.school.model.Author;
+import com.mjc.school.model.News;
+import com.mjc.school.model.Tag;
+import com.mjc.school.repository.AbstractDBRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
@@ -11,23 +12,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository("newsRepository")
-public class NewsRepository extends AbstractDBRepository<NewsModel, Long> {
-    public List<NewsModel> readListOfNewsByParams(List<String> tagName, List<Long> tagId, String authorName, String title, String content) {
+public class NewsRepository extends AbstractDBRepository<News, Long> {
+    public List<News> readListOfNewsByParams(List<String> tagName, List<Long> tagId, String authorName, String title, String content) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<NewsModel> query = criteriaBuilder.createQuery(NewsModel.class);
-        Root<NewsModel> root = query.from(NewsModel.class);
+        CriteriaQuery<News> query = criteriaBuilder.createQuery(News.class);
+        Root<News> root = query.from(News.class);
         if (tagName != null && !tagName.isEmpty()) {
-            Join<NewsModel, TagModel> newsJoinTags = root.join("tags");
+            Join<News, Tag> newsJoinTags = root.join("tags");
             Predicate tagN = criteriaBuilder.equal(newsJoinTags.get("name"), tagName);
             query.select(root).where(tagN);
         }
         if (tagId != null && !tagId.isEmpty()) {
-            Join<NewsModel, TagModel> newsJoinTags = root.join("tags");
+            Join<News, Tag> newsJoinTags = root.join("tags");
             Predicate tagI = criteriaBuilder.in(newsJoinTags.get("id")).value(tagId);
             query.select(root).where(tagI);
         }
         if (authorName != null) {
-            Join<NewsModel, AuthorModel> newsJoinAuthor = root.join("authorModel");
+            Join<News, Author> newsJoinAuthor = root.join("authorModel");
             Predicate authorN = criteriaBuilder.equal(newsJoinAuthor.get("name"),  authorName );
             query.select(root).where(authorN);
         }
@@ -39,26 +40,26 @@ public class NewsRepository extends AbstractDBRepository<NewsModel, Long> {
             Predicate contentPart = criteriaBuilder.like(root.get("content"), "%" + content + "%");
             query.select(root).where(contentPart);
         }
-        TypedQuery<NewsModel> result = entityManager.createQuery(query);
+        TypedQuery<News> result = entityManager.createQuery(query);
         return result.getResultList();
     }
 
     @Override
-    void update(NewsModel prevState, NewsModel nextState) {
+    public void update(News prevState, News nextState) {
         prevState.setTitle(nextState.getTitle());
 
         prevState.setContent(nextState.getContent());
 
-        AuthorModel authorModel = nextState.getAuthorModel();
+        Author authorModel = nextState.getAuthorModel();
         prevState.setAuthorModel(nextState.getAuthorModel());
 
-        List<TagModel> tagModels = nextState.getTags();
+        List<Tag> tagModels = nextState.getTags();
         prevState.setTags(nextState.getTags());
 
     }
 
-    public Optional<NewsModel> readNewsByTitle(String title) {
-        TypedQuery<NewsModel> typedQuery = entityManager.createQuery("SELECT a FROM NewsModel a WHERE a.title LIKE:title", NewsModel.class).setParameter("title", title);
+    public Optional<News> readNewsByTitle(String title) {
+        TypedQuery<News> typedQuery = entityManager.createQuery("SELECT a FROM News a WHERE a.title LIKE:title", News.class).setParameter("title", title);
         try {
             return Optional.of(typedQuery.getSingleResult());
         } catch (Exception e) {

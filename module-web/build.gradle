@@ -1,11 +1,20 @@
 plugins {
     id 'java-library'
-    id 'org.springframework.boot' version '2.7.7'}
+    id 'org.springframework.boot' version '2.7.7'
+}
+
+ext {
+    springBootVersion = '2.7.7'
+    springAspectsVersion = '6.0.11'
+    datasourceAspectVersion = '0.1'
+    springfoxVersion = '3.0.0'
+}
 
 dependencies {
     implementation project(":module-repository")
-    implementation project(':module-service')
-    implementation 'org.springframework:spring-aspects:6.0.11'
-    implementation 'com.github.shalousun:datasource-aspect:0.1'
-    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+    implementation project(":module-service")
+
+    implementation group: 'org.springframework', name: 'spring-aspects', version: springAspectsVersion
+    implementation group: 'com.github.shalousun', name: 'datasource-aspect', version: datasourceAspectVersion
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: springfoxVersion
 }

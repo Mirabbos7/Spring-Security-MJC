@@ -24,7 +24,7 @@ import java.util.List;
 @Api(value = "News", description = "Operations for creating, updating, retrieving and deleting news in the application")
 public class NewsController implements NewsControllerInterface<NewsDtoRequest, NewsDtoResponse, Long> {
 
-    private final NewsServiceInterface <NewsDtoRequest, NewsDtoResponse, Long> newsService;
+    private final NewsServiceInterface<NewsDtoRequest, NewsDtoResponse, Long> newsService;
     private final AuthorServiceInterface authorService;
     private final TagServiceInterface tagService;
     private final CommentServiceInterface commentService;
@@ -83,10 +83,10 @@ public class NewsController implements NewsControllerInterface<NewsDtoRequest, N
     }
 
     @Override
-    @PatchMapping(value = "/{id:\\d+}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Update a news", response = NewsDtoResponse.class)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully updated a news"),
             @ApiResponse(code = 400, message = "Invalid request from the client"),
@@ -102,10 +102,10 @@ public class NewsController implements NewsControllerInterface<NewsDtoRequest, N
     }
 
     @Override
-    @DeleteMapping(value = "/{id:\\d+}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation(value = "Delete news by ID")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Successfully deleted news by ID"),
             @ApiResponse(code = 400, message = "Invalid ID supplied"),

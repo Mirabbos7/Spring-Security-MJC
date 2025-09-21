@@ -1,11 +1,11 @@
 package com.mjc.school.service.implementation;
 
-import com.mjc.school.repository.implementation.AuthorRepository;
-import com.mjc.school.repository.implementation.NewsRepository;
-import com.mjc.school.repository.implementation.TagRepository;
-import com.mjc.school.repository.model.AuthorModel;
-import com.mjc.school.repository.model.NewsModel;
-import com.mjc.school.repository.model.TagModel;
+import com.mjc.school.implementation.AuthorRepository;
+import com.mjc.school.implementation.NewsRepository;
+import com.mjc.school.implementation.TagRepository;
+import com.mjc.school.model.Author;
+import com.mjc.school.model.News;
+import com.mjc.school.model.Tag;
 import com.mjc.school.service.dto.NewsDtoRequest;
 import com.mjc.school.service.dto.NewsDtoResponse;
 import com.mjc.school.service.dto.NewsPageDtoResponse;
@@ -39,7 +39,6 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
     private final TagRepository tagRepository;
     private CustomValidator customValidator;
 
-    @Autowired
     public NewsService(NewsRepository newsRepository, NewsMapper newsMapper, AuthorRepository authorRepository, TagRepository tagRepository, CustomValidator customValidator) {
         this.newsRepository = newsRepository;
         this.newsMapper = newsMapper;
@@ -64,7 +63,7 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
     @Override
     @Transactional(readOnly = true)
     public NewsDtoResponse readById(Long id) {
-        Optional<NewsModel> opt = newsRepository.readById(id);
+        Optional<News> opt = newsRepository.readById(id);
         return opt.map(newsMapper::ModelNewsToDTO).orElseThrow(() -> new ElementNotFoundException(String.format(NO_NEWS_WITH_PROVIDED_ID.getErrorMessage(), id)));
 
     }
@@ -86,7 +85,7 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
         if (newsRepository.readNewsByTitle(createRequest.title()).isPresent()) {
             throw new ValidatorException("Title of news must be unique");
         }
-        NewsModel newsModel = newsMapper.DTONewsToModel(createRequest);
+        News newsModel = newsMapper.DTONewsToModel(createRequest);
         return newsMapper.ModelNewsToDTO(newsRepository.create(newsModel));
     }
 
@@ -101,7 +100,7 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
             if (newsRepository.readNewsByTitle(updateRequest.title()).isPresent()) {
                 throw new ValidatorException("Title of news must be unique");
             }
-            NewsModel newsModel = newsMapper.DTONewsToModel(updateRequest);
+            News newsModel = newsMapper.DTONewsToModel(updateRequest);
             newsModel.setId(id);
 
             return newsMapper.ModelNewsToDTO(newsRepository.update(newsModel));
@@ -131,7 +130,7 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
         if (authorName != null && !authorName.equals("")) {
             if (authorName.length() < AUTHOR_NAME_MAX_LENGTH && authorName.length() > AUTHOR_NAME_MIN_LENGTH && !authorName.isBlank()) {
                 if (authorRepository.readAuthorByName(authorName).isEmpty()) {
-                    AuthorModel authorModel = new AuthorModel();
+                    Author authorModel = new Author();
                     authorModel.setName(authorName);
                     authorRepository.create(authorModel);
                 }
@@ -145,7 +144,7 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
     public void createNotExistTags(List<String> tagNames) {
         tagNames.stream().filter(name -> tagRepository.readTagByName(name).isEmpty()).map(name -> {
             if (name.length() >= TAG_NAME_MIN_LENGTH && name.length() < TAG_NAME_MAX_LENGTH && !name.isBlank()) {
-                TagModel tagModel = new TagModel();
+                Tag tagModel = new Tag();
                 tagModel.setName(name);
                 return tagModel;
             } else {

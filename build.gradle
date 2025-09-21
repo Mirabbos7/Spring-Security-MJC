@@ -6,6 +6,24 @@ wrapper {
     gradleVersion = gradlewVersion
 }
 
+ext {
+    javaVersion = 17
+    gradlewVersion = '7.4.2'
+    springVersion = '5.3.18'
+    springBootVersion = '2.7.7'
+    jupiterVersion = '5.8.1'
+    archUnitVersion = '0.23.1'
+    mapstructVersion = '1.4.2.Final'
+    assertjVersion = '3.24.2'
+    restAssuredVersion = '4.5.1'
+    lombokVersion = '1.18.26'
+    postgresqlVersion = '42.6.0'
+    jjwtVersion = '0.2'
+    validationApiVersion = '2.0.1.Final'
+    jaxbVersion = '2.3.1'
+    securityTestVersion = '5.8.1'
+    archunitJUnitVersion = '1.0.0'
+}
 
 subprojects {
     apply plugin: 'java'
@@ -19,44 +37,43 @@ subprojects {
         mavenCentral()
     }
 
-
     dependencies {
+        implementation group: 'org.springframework', name: 'spring-context', version: springVersion
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: springBootVersion
+        testImplementation group: 'org.springframework', name: 'spring-test', version: springVersion
+        testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: springBootVersion
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: springBootVersion, ext: 'pom'
 
-        implementation "org.springframework:spring-context:$springVersion"
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.7'
-        implementation 'org.springframework.boot:spring-boot-starter-web:2.7.7'
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: '2.7.7'
-        testImplementation "org.springframework:spring-test:$springVersion"
-        testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.7'
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.7.7'
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.7.7', ext: 'pom'
+        implementation group: 'io.jsonwebtoken', name: 'jjwt', version: jjwtVersion
+        implementation group: 'org.springframework.security', name: 'spring-security-config', version: springBootVersion
+        implementation group: 'org.springframework.security', name: 'spring-security-core', version: springBootVersion
+        testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: securityTestVersion
 
-        implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
-        implementation group: 'org.springframework.security', name: 'spring-security-config', version: '2.7.7'
-        implementation group: 'org.springframework.security', name: 'spring-security-core', version: '2.7.7'
-        testImplementation 'org.springframework.security:spring-security-test:5.8.1'
+        implementation group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
 
-        implementation 'org.postgresql:postgresql:42.6.0'
+        implementation group: 'javax.xml.bind', name: 'jaxb-api', version: jaxbVersion
+        implementation group: 'javax.validation', name: 'validation-api', version: validationApiVersion
 
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jupiterVersion
+        testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jupiterVersion
 
-        implementation 'javax.xml.bind:jaxb-api:2.3.1'
-        implementation 'javax.validation:validation-api:2.0.1.Final'
+        testImplementation group: 'com.tngtech.archunit', name: 'archunit', version: archUnitVersion
+        testImplementation group: 'com.tngtech.archunit', name: 'archunit-junit5', version: archunitJUnitVersion
 
+        testImplementation group: 'org.assertj', name: 'assertj-core', version: assertjVersion
 
-        testImplementation "org.junit.jupiter:junit-jupiter-api:$jupiterVersion"
-        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jupiterVersion"
+        annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: mapstructVersion
+        implementation group: 'org.mapstruct', name: 'mapstruct', version: mapstructVersion
 
-        testImplementation "com.tngtech.archunit:archunit:$archUnitVersion"
-        testImplementation "com.tngtech.archunit:archunit-junit5:1.0.0"
+        testImplementation group: 'io.rest-assured', name: 'rest-assured', version: restAssuredVersion
 
-        testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
-
-        annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
-        implementation "org.mapstruct:mapstruct:$mapstructVersion"
-        testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.5.1'
-        compileOnly 'org.projectlombok:lombok:1.18.26'
-        annotationProcessor 'org.projectlombok:lombok:1.18.26'
+        compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+        annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
     }
+
     test {
         useJUnitPlatform()
     }

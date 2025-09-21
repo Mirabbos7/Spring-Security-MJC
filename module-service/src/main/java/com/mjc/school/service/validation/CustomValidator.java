@@ -28,7 +28,6 @@ public class CustomValidator {
     public static final String ERROR_OF_NEWS_CONTENT = "Length of content must be between " + NEWS_CONTENT_MIN_LENGTH + " and " + NEWS_CONTENT_MAX_LENGTH;
     public static final String ERROR_OF_COMMENTS_CONTENT = "Length of comment`s content must be between " + COMMENTS_CONTENT_MIN_LENGTH + " and " + COMMENTS_CONTENT_MAX_LENGTH;
 
-
     public void validateLength(String param, int minLength, int maxLength, String error) {
         if (param.length() < minLength || param.length() > maxLength) {
             throw new ValidationException(String.format(ErrorCodes.VALIDATION.getErrorMessage(), error));
@@ -51,7 +50,6 @@ public class CustomValidator {
     public void validateComment(CommentDtoRequest comment) {
         validateLength(comment.content(), COMMENTS_CONTENT_MIN_LENGTH, COMMENTS_CONTENT_MAX_LENGTH, ERROR_OF_COMMENTS_CONTENT);
     }
-
 
 }
 

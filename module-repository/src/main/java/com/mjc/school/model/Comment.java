@@ -1,6 +1,6 @@
-package com.mjc.school.repository.model;
+package com.mjc.school.model;
 
-import com.mjc.school.repository.interfaces.BaseEntity;
+import com.mjc.school.interfaces.BaseEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,7 +15,7 @@ import java.util.Objects;
 @Table(name = "comment")
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class CommentModel implements BaseEntity<Long> {
+public class Comment implements BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -26,7 +26,7 @@ public class CommentModel implements BaseEntity<Long> {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "news_id", nullable = false)
-    private NewsModel newsModel;
+    private News newsModel;
 
     @CreatedDate
     @Column(name = "created")
@@ -38,7 +38,7 @@ public class CommentModel implements BaseEntity<Long> {
     private LocalDateTime modified;
 
 
-    public CommentModel() {
+    public Comment() {
     }
 
     @Override
@@ -76,11 +76,11 @@ public class CommentModel implements BaseEntity<Long> {
         this.created = created;
     }
 
-    public NewsModel getNewsModel() {
+    public News getNewsModel() {
         return newsModel;
     }
 
-    public void setNewsModel(NewsModel newsModel) {
+    public void setNewsModel(News newsModel) {
         this.newsModel = newsModel;
     }
 
@@ -91,7 +91,7 @@ public class CommentModel implements BaseEntity<Long> {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        CommentModel authorModel = (CommentModel) obj;
+        Comment authorModel = (Comment) obj;
         return id == authorModel.id &&
                 (content == authorModel.content || (content != null && content.equals(authorModel.getContent()))) &&
                 (created == authorModel.created || (created != null && created.equals(authorModel.getCreated()))) &&

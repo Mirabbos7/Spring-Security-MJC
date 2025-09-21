@@ -23,6 +23,8 @@ import javax.validation.Valid;
 public class AuthenticationController {
     private final UserService userService;
 
+    //Mirabbos7777 username + password
+
     @ApiOperation(value = "User registration", response = JwtAuthenticationResponse.class)
     @PostMapping("/sign-up")
     public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
