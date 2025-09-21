@@ -88,7 +88,7 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
     @PatchMapping(value = "/{id:\\d+}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Update an author", response = AuthorDtoResponse.class)
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully updated an author"),
             @ApiResponse(code = 400, message = "Invalid request from the client"),
