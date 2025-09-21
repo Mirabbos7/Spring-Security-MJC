@@ -7,49 +7,6 @@
     <list default="true" id="e8f9376d-06a5-4091-b573-6b1cac4f63d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/implementation/AbstractDBRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/AbstractDBRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/implementation/AuthorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/implementation/AuthorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/implementation/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/implementation/CommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/implementation/NewsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/implementation/NewsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/implementation/TagRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/implementation/TagRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/implementation/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/interfaces/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/interfaces/BaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/interfaces/BaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/interfaces/BaseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/AuthorModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/model/Author.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/CommentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/model/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/NewsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/model/News.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/TagModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/model/Tag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/repository/model/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-repository/src/main/java/com/mjc/school/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/configuration/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/AuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/AuthorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/NewsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/NewsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/TagsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/implementation/TagsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/mapper/AuthorMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/mapper/AuthorMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/mapper/CommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/mapper/CommentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/mapper/NewsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/mapper/NewsMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/mapper/TagMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/mapper/TagMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/services/JwtTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/services/JwtTokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-service/src/main/java/com/mjc/school/service/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/test/java/AuthorServiceMockTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/test/java/CommentsServiceMockTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/test/java/TagServiceMockTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-service/src/test/java/UserServiceMockTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/AuthorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/AuthorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/NewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/NewsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/TagsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/module-web/src/main/java/com/mjc/school/controller/implementation/TagsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/test/java/com/mjc/school/controller/AuthenticationControllerMockTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/test/java/com/mjc/school/controller/AuthorControllerMockTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/test/java/com/mjc/school/controller/CommentControllerMockTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/test/java/com/mjc/school/controller/NewsControllerMockTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module-web/src/test/java/com/mjc/school/controller/TagControllerMockTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +200,7 @@
       <workItem from="1758308126214" duration="4762000" />
       <workItem from="1758382445390" duration="3760000" />
       <workItem from="1758387655882" duration="7116000" />
-      <workItem from="1758471759005" duration="1708000" />
+      <workItem from="1758471759005" duration="2061000" />
     </task>
     <servers />
   </component>
