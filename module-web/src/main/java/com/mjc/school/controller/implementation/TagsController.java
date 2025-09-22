@@ -46,7 +46,7 @@ public class TagsController implements BaseController<TagDtoRequest, TagDtoRespo
     }
 
     @Override
-    @GetMapping(value = "/{id:\\d+}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get tag by ID", response = TagDtoResponse.class)
     @ApiResponses(value = {

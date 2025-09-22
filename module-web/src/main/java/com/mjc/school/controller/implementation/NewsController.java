@@ -49,7 +49,7 @@ public class NewsController implements NewsControllerInterface<NewsDtoRequest, N
     }
 
     @Override
-    @GetMapping(value = "/{id:\\d+}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get news by ID", response = NewsDtoResponse.class)
     @ApiResponses(value = {

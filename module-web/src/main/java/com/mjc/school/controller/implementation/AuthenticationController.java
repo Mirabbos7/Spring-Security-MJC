@@ -3,6 +3,7 @@ package com.mjc.school.controller.implementation;
 import com.mjc.school.service.dtoForUser.JwtAuthenticationResponse;
 import com.mjc.school.service.dtoForUser.SignInRequest;
 import com.mjc.school.service.dtoForUser.SignUpRequest;
+import com.mjc.school.service.services.AuthenticationService;
 import com.mjc.school.service.services.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -21,20 +22,20 @@ import javax.validation.Valid;
 @RequestMapping(produces = "application/json")
 @RequiredArgsConstructor
 public class AuthenticationController {
-    private final UserService userService;
+    private final AuthenticationService authService;
 
     //Mirabbos7777 username + password
 
     @ApiOperation(value = "User registration", response = JwtAuthenticationResponse.class)
     @PostMapping("/sign-up")
     public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
-        return userService.signUp(request);
+        return authService.signUp(request);
     }
 
     @ApiOperation(value = "User authorisation", response = JwtAuthenticationResponse.class)
     @PostMapping("/sign-in")
     public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
-        return userService.signIn(request);
+        return authService.signIn(request);
     }
 
     @PatchMapping("/{id}/promote")
@@ -50,7 +51,7 @@ public class AuthenticationController {
             @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<String> promoteToAdmin(@PathVariable Long id) {
-        userService.promoteToAdmin(id);
+        authService.promoteToAdmin(id);
         return ResponseEntity.ok("User promoted to admin successfully.");
     }
 }

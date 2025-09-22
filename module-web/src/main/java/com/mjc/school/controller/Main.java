@@ -19,11 +19,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @ComponentScan(value = {"com.mjc.school", "com.mjc.school", "com.mjc.school.service", "com.mjc.school.controller"})
-@EntityScan(basePackages = {"com.mjc.school.repository"})
+@EntityScan(basePackages = {"com.mjc.school"})
 @EnableWebMvc
 @EnableSwagger2
 @EnableJpaAuditing
-@EnableJpaRepositories(basePackages = "com.mjc.school.implementation")
+@EnableJpaRepositories(basePackages = "com.mjc.school")
 @EnableTransactionManagement
 
 public class Main {

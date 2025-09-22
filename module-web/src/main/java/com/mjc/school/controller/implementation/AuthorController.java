@@ -49,7 +49,7 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
     }
 
     @Override
-    @GetMapping(value = "/{id:\\d+}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get author by ID", response = AuthorDtoResponse.class)
     @ApiResponses(value = {

@@ -45,7 +45,7 @@ public class CommentController implements BaseController<CommentDtoRequest, Comm
     }
 
     @Override
-    @GetMapping(value = "/{id:\\d+}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get comment by ID", response = CommentDtoResponse.class)
     @ApiResponses(value = {
