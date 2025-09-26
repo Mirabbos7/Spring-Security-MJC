@@ -1,4 +1,4 @@
-package com.mjc.school.implementation;
+package com.mjc.school.repository.impl;
 
 import com.mjc.school.model.Comment;
 import com.mjc.school.repository.AbstractDBRepository;

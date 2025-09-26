@@ -1,4 +1,4 @@
-package com.mjc.school.service.services;
+package com.mjc.school.service.security.service;
 
 import com.mjc.school.model.User;
 import org.springframework.security.core.userdetails.UserDetails;

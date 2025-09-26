@@ -1,15 +1,14 @@
-package com.mjc.school.service.implementation;
+package com.mjc.school.service.service.impl;
 
-import com.mjc.school.implementation.TagRepository;
+import com.mjc.school.repository.impl.TagRepository;
 import com.mjc.school.model.Tag;
 import com.mjc.school.service.dto.TagDtoRequest;
 import com.mjc.school.service.dto.TagDtoResponse;
 import com.mjc.school.service.exceptions.ElementNotFoundException;
 import com.mjc.school.service.exceptions.ValidatorException;
-import com.mjc.school.service.interfaces.TagServiceInterface;
 import com.mjc.school.service.mapper.TagMapper;
+import com.mjc.school.service.service.TagServiceInterface;
 import com.mjc.school.service.validation.CustomValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

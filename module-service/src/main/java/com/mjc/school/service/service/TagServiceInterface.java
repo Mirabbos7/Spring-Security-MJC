@@ -1,7 +1,8 @@
-package com.mjc.school.service.interfaces;
+package com.mjc.school.service.service;
 
 import com.mjc.school.service.dto.TagDtoRequest;
 import com.mjc.school.service.dto.TagDtoResponse;
+import com.mjc.school.service.security.service.BaseService;
 
 import java.util.List;
 

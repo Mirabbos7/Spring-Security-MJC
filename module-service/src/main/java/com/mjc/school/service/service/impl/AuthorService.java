@@ -1,16 +1,15 @@
-package com.mjc.school.service.implementation;
+package com.mjc.school.service.service.impl;
 
 
-import com.mjc.school.implementation.AuthorRepository;
+import com.mjc.school.repository.impl.AuthorRepository;
 import com.mjc.school.model.Author;
 import com.mjc.school.service.dto.AuthorDtoRequest;
 import com.mjc.school.service.dto.AuthorDtoResponse;
 import com.mjc.school.service.exceptions.ElementNotFoundException;
 import com.mjc.school.service.exceptions.ValidatorException;
-import com.mjc.school.service.interfaces.AuthorServiceInterface;
 import com.mjc.school.service.mapper.AuthorMapper;
+import com.mjc.school.service.service.AuthorServiceInterface;
 import com.mjc.school.service.validation.CustomValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

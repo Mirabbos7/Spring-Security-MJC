@@ -5,7 +5,7 @@ import com.mjc.school.controller.annotation.CommandParam;
 import com.mjc.school.controller.hateoas.LinkHelper;
 import com.mjc.school.service.dto.CommentDtoRequest;
 import com.mjc.school.service.dto.CommentDtoResponse;
-import com.mjc.school.service.interfaces.CommentServiceInterface;
+import com.mjc.school.service.service.CommentServiceInterface;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

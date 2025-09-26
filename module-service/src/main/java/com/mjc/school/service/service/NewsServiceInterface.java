@@ -1,7 +1,5 @@
-package com.mjc.school.service.interfaces;
+package com.mjc.school.service.service;
 
-import com.mjc.school.service.dto.NewsDtoRequest;
-import com.mjc.school.service.dto.NewsDtoResponse;
 import com.mjc.school.service.dto.NewsPageDtoResponse;
 
 import java.util.List;

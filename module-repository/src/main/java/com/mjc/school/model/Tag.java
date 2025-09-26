@@ -1,7 +1,5 @@
 package com.mjc.school.model;
 
-import com.mjc.school.interfaces.BaseEntity;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mjc.school.service.interfaces;
+package com.mjc.school.service.security.service;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.mjc.school.service.implementation;
+package com.mjc.school.service.service.impl;
 
-import com.mjc.school.implementation.AuthorRepository;
-import com.mjc.school.implementation.NewsRepository;
-import com.mjc.school.implementation.TagRepository;
+import com.mjc.school.repository.impl.AuthorRepository;
+import com.mjc.school.repository.impl.NewsRepository;
+import com.mjc.school.repository.impl.TagRepository;
 import com.mjc.school.model.Author;
 import com.mjc.school.model.News;
 import com.mjc.school.model.Tag;
@@ -12,10 +12,9 @@ import com.mjc.school.service.dto.NewsPageDtoResponse;
 import com.mjc.school.service.exceptions.ElementNotFoundException;
 import com.mjc.school.service.exceptions.ErrorCodes;
 import com.mjc.school.service.exceptions.ValidatorException;
-import com.mjc.school.service.interfaces.NewsServiceInterface;
 import com.mjc.school.service.mapper.NewsMapper;
+import com.mjc.school.service.service.NewsServiceInterface;
 import com.mjc.school.service.validation.CustomValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

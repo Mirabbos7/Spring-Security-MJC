@@ -1,6 +1,7 @@
-package com.mjc.school.service.configuration;
+package com.mjc.school.service.security.config;
 
-import com.mjc.school.service.services.UserService;
+import com.mjc.school.service.security.filter.JwtAuthenticationFilter;
+import com.mjc.school.service.security.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

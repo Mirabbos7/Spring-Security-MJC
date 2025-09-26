@@ -1,9 +1,9 @@
-package com.mjc.school.service.implementation;
+package com.mjc.school.service.service.impl;
 
 
-import com.mjc.school.implementation.CommentRepository;
+import com.mjc.school.repository.impl.CommentRepository;
 
-import com.mjc.school.implementation.NewsRepository;
+import com.mjc.school.repository.impl.NewsRepository;
 import com.mjc.school.model.Comment;
 
 import com.mjc.school.model.News;
@@ -11,10 +11,9 @@ import com.mjc.school.service.dto.CommentDtoRequest;
 import com.mjc.school.service.dto.CommentDtoResponse;
 import com.mjc.school.service.exceptions.ElementNotFoundException;
 import com.mjc.school.service.exceptions.ValidatorException;
-import com.mjc.school.service.interfaces.CommentServiceInterface;
 import com.mjc.school.service.mapper.CommentMapper;
+import com.mjc.school.service.service.CommentServiceInterface;
 import com.mjc.school.service.validation.CustomValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

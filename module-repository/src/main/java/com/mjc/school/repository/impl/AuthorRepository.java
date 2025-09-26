@@ -1,4 +1,4 @@
-package com.mjc.school.implementation;
+package com.mjc.school.repository.impl;
 
 
 import com.mjc.school.model.Author;
@@ -20,10 +20,8 @@ public class AuthorRepository extends AbstractDBRepository<Author, Long> {
             return entityManager.createQuery(str).getResultList();
         }
         return super.readAll(page, size, sortBy);
-
     }
 
-    @Override
     public void update(Author prevState, Author nextState) {
         if (nextState.getName() != null && !nextState.getName().isBlank()) {
             prevState.setName(nextState.getName());
