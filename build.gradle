@@ -22,7 +22,6 @@ ext {
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'jacoco'
     group = 'com.mjc.school'
 
     sourceCompatibility = javaVersion
@@ -40,7 +39,6 @@ subprojects {
         testImplementation group: 'org.springframework', name: 'spring-test', version: springVersion
         testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
         implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: springBootVersion
-        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: springBootVersion, ext: 'pom'
 
         implementation group: 'io.jsonwebtoken', name: 'jjwt', version: jjwtVersion
         implementation group: 'org.springframework.security', name: 'spring-security-config', version: springBootVersion
@@ -54,9 +52,6 @@ subprojects {
 
         testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jupiterVersion
         testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jupiterVersion
-
-        testImplementation group: 'com.tngtech.archunit', name: 'archunit', version: archUnitVersion
-        testImplementation group: 'com.tngtech.archunit', name: 'archunit-junit5', version: archunitJUnitVersion
 
         testImplementation group: 'org.assertj', name: 'assertj-core', version: assertjVersion
 
