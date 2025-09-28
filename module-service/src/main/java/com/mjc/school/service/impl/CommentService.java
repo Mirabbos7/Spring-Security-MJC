@@ -9,11 +9,12 @@ import com.mjc.school.model.Comment;
 import com.mjc.school.model.News;
 import com.mjc.school.dto.CommentDtoRequest;
 import com.mjc.school.dto.CommentDtoResponse;
-import com.mjc.school.exceptions.ElementNotFoundException;
-import com.mjc.school.exceptions.ValidatorException;
+import com.mjc.school.exception.ElementNotFoundException;
+import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.CommentMapper;
 import com.mjc.school.service.CommentServiceInterface;
 import com.mjc.school.validation.CustomValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,24 +23,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mjc.school.exceptions.ErrorCodes.INVALID_VALUE_OF_SORTING;
-import static com.mjc.school.exceptions.ErrorCodes.NO_COMMENTS_FOR_NEWS_ID;
-import static com.mjc.school.exceptions.ErrorCodes.NO_COMMENT_WITH_PROVIDED_ID;
+import static com.mjc.school.exception.ErrorCodes.INVALID_VALUE_OF_SORTING;
+import static com.mjc.school.exception.ErrorCodes.NO_COMMENTS_FOR_NEWS_ID;
+import static com.mjc.school.exception.ErrorCodes.NO_COMMENT_WITH_PROVIDED_ID;
 
 @Service("commentService")
 @Transactional
+@RequiredArgsConstructor
 public class CommentService implements CommentServiceInterface {
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
     private final NewsRepository newsRepository;
-    private CustomValidator customValidator;
-
-    public CommentService(CommentRepository commentRepository, CommentMapper commentMapper, NewsRepository newsRepository, CustomValidator customValidator) {
-        this.commentRepository = commentRepository;
-        this.commentMapper = commentMapper;
-        this.newsRepository = newsRepository;
-        this.customValidator = customValidator;
-    }
+    private final CustomValidator customValidator;
 
     @Override
     @Transactional(readOnly = true)
