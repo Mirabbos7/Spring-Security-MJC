@@ -2,8 +2,8 @@ package com.mjc.school.service.impl;
 
 import com.mjc.school.dto.AuthorDtoRequest;
 import com.mjc.school.dto.AuthorDtoResponse;
-import com.mjc.school.exceptions.ElementNotFoundException;
-import com.mjc.school.exceptions.ValidatorException;
+import com.mjc.school.exception.ElementNotFoundException;
+import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.AuthorMapper;
 import com.mjc.school.model.Author;
 import com.mjc.school.repository.impl.AuthorRepository;
@@ -17,10 +17,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
-import static com.mjc.school.exceptions.ErrorCodes.*;
+import static com.mjc.school.exception.ErrorCodes.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

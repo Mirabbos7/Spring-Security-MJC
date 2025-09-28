@@ -2,8 +2,8 @@ package com.mjc.school.service.impl;
 
 import com.mjc.school.dto.TagDtoRequest;
 import com.mjc.school.dto.TagDtoResponse;
-import com.mjc.school.exceptions.ElementNotFoundException;
-import com.mjc.school.exceptions.ValidatorException;
+import com.mjc.school.exception.ElementNotFoundException;
+import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.TagMapper;
 import com.mjc.school.model.Tag;
 import com.mjc.school.repository.impl.TagRepository;
@@ -19,7 +19,7 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mjc.school.exceptions.ErrorCodes.*;
+import static com.mjc.school.exception.ErrorCodes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;

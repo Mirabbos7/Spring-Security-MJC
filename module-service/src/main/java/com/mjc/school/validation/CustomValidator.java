@@ -4,7 +4,7 @@ import com.mjc.school.dto.AuthorDtoRequest;
 import com.mjc.school.dto.CommentDtoRequest;
 import com.mjc.school.dto.NewsDtoRequest;
 import com.mjc.school.dto.TagDtoRequest;
-import com.mjc.school.exceptions.ErrorCodes;
+import com.mjc.school.exception.ErrorCodes;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ValidationException;

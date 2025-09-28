@@ -1,8 +1,8 @@
 package com.mjc.school.service.impl;
 import com.mjc.school.dto.CommentDtoRequest;
 import com.mjc.school.dto.CommentDtoResponse;
-import com.mjc.school.exceptions.ElementNotFoundException;
-import com.mjc.school.exceptions.ValidatorException;
+import com.mjc.school.exception.ElementNotFoundException;
+import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.CommentMapper;
 import com.mjc.school.model.Author;
 import com.mjc.school.model.Comment;
@@ -22,10 +22,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mjc.school.exceptions.ErrorCodes.*;
+import static com.mjc.school.exception.ErrorCodes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

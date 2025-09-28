@@ -9,12 +9,13 @@ import com.mjc.school.model.Tag;
 import com.mjc.school.dto.NewsDtoRequest;
 import com.mjc.school.dto.NewsDtoResponse;
 import com.mjc.school.dto.NewsPageDtoResponse;
-import com.mjc.school.exceptions.ElementNotFoundException;
-import com.mjc.school.exceptions.ErrorCodes;
-import com.mjc.school.exceptions.ValidatorException;
+import com.mjc.school.exception.ElementNotFoundException;
+import com.mjc.school.exception.ErrorCodes;
+import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.NewsMapper;
 import com.mjc.school.service.NewsServiceInterface;
 import com.mjc.school.validation.CustomValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mjc.school.exceptions.ErrorCodes.INVALID_VALUE_OF_SORTING;
-import static com.mjc.school.exceptions.ErrorCodes.NO_NEWS_WITH_PROVIDED_ID;
+import static com.mjc.school.exception.ErrorCodes.INVALID_VALUE_OF_SORTING;
+import static com.mjc.school.exception.ErrorCodes.NO_NEWS_WITH_PROVIDED_ID;
 import static com.mjc.school.validation.CustomValidator.AUTHOR_NAME_MAX_LENGTH;
 import static com.mjc.school.validation.CustomValidator.AUTHOR_NAME_MIN_LENGTH;
 import static com.mjc.school.validation.CustomValidator.TAG_NAME_MAX_LENGTH;
@@ -31,20 +32,13 @@ import static com.mjc.school.validation.CustomValidator.TAG_NAME_MIN_LENGTH;
 
 @Service("newsService")
 @Transactional
+@RequiredArgsConstructor
 public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDtoResponse, Long> {
     private final NewsRepository newsRepository;
-    private NewsMapper newsMapper;
+    private final NewsMapper newsMapper;
     private final AuthorRepository authorRepository;
     private final TagRepository tagRepository;
-    private CustomValidator customValidator;
-
-    public NewsService(NewsRepository newsRepository, NewsMapper newsMapper, AuthorRepository authorRepository, TagRepository tagRepository, CustomValidator customValidator) {
-        this.newsRepository = newsRepository;
-        this.newsMapper = newsMapper;
-        this.authorRepository = authorRepository;
-        this.tagRepository = tagRepository;
-        this.customValidator = customValidator;
-    }
+    private final CustomValidator customValidator;
 
     @Override
     @Transactional(readOnly = true)
@@ -57,7 +51,6 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
             throw new ValidatorException(String.format(INVALID_VALUE_OF_SORTING.getErrorMessage()));
         }
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -125,7 +118,7 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
         return newsMapper.ModelListToDtoList(newsRepository.readListOfNewsByParams(tagName, tagId, authorName, title, content));
     }
 
-    public void createNotExistAuthor(String authorName) {
+    private void createNotExistAuthor(String authorName) {
         if (authorName != null && !authorName.equals("")) {
             if (authorName.length() < AUTHOR_NAME_MAX_LENGTH && authorName.length() > AUTHOR_NAME_MIN_LENGTH && !authorName.isBlank()) {
                 if (authorRepository.readAuthorByName(authorName).isEmpty()) {
@@ -140,7 +133,7 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
         }
     }
 
-    public void createNotExistTags(List<String> tagNames) {
+    private void createNotExistTags(List<String> tagNames) {
         tagNames.stream().filter(name -> tagRepository.readTagByName(name).isEmpty()).map(name -> {
             if (name.length() >= TAG_NAME_MIN_LENGTH && name.length() < TAG_NAME_MAX_LENGTH && !name.isBlank()) {
                 Tag tagModel = new Tag();

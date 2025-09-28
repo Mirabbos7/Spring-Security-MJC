@@ -4,11 +4,12 @@ import com.mjc.school.repository.impl.TagRepository;
 import com.mjc.school.model.Tag;
 import com.mjc.school.dto.TagDtoRequest;
 import com.mjc.school.dto.TagDtoResponse;
-import com.mjc.school.exceptions.ElementNotFoundException;
-import com.mjc.school.exceptions.ValidatorException;
+import com.mjc.school.exception.ElementNotFoundException;
+import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.TagMapper;
 import com.mjc.school.service.TagServiceInterface;
 import com.mjc.school.validation.CustomValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,24 +17,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mjc.school.exceptions.ErrorCodes.INVALID_VALUE_OF_SORTING;
-import static com.mjc.school.exceptions.ErrorCodes.NOT_UNIQUE_TAGS_NAME;
-import static com.mjc.school.exceptions.ErrorCodes.NO_NEWS_WITH_PROVIDED_ID;
-import static com.mjc.school.exceptions.ErrorCodes.NO_TAGS_FOR_NEWS_ID;
-import static com.mjc.school.exceptions.ErrorCodes.NO_TAG_WITH_PROVIDED_ID;
+import static com.mjc.school.exception.ErrorCodes.INVALID_VALUE_OF_SORTING;
+import static com.mjc.school.exception.ErrorCodes.NOT_UNIQUE_TAGS_NAME;
+import static com.mjc.school.exception.ErrorCodes.NO_NEWS_WITH_PROVIDED_ID;
+import static com.mjc.school.exception.ErrorCodes.NO_TAGS_FOR_NEWS_ID;
+import static com.mjc.school.exception.ErrorCodes.NO_TAG_WITH_PROVIDED_ID;
 
 @Service("tagsService")
 @Transactional
+@RequiredArgsConstructor
 public class TagsService implements TagServiceInterface {
     private final TagRepository tagsRepository;
     private final TagMapper tagMapper;
-    private CustomValidator customValidator;
-
-    public TagsService(TagRepository tagsRepository, TagMapper tagMapper, CustomValidator customValidator) {
-        this.tagsRepository = tagsRepository;
-        this.tagMapper = tagMapper;
-        this.customValidator = customValidator;
-    }
+    private final CustomValidator customValidator;
 
     @Override
     @Transactional(readOnly = true)
