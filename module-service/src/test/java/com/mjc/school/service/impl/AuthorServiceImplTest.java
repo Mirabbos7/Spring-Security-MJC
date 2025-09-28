@@ -19,12 +19,19 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static com.mjc.school.exception.ErrorCodes.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static com.mjc.school.exception.ErrorCodes.INVALID_VALUE_OF_SORTING;
+import static com.mjc.school.exception.ErrorCodes.NOT_UNIQUE_AUTHOR_NAME;
+import static com.mjc.school.exception.ErrorCodes.NO_AUTHOR_FOR_NEWS_ID;
+import static com.mjc.school.exception.ErrorCodes.NO_AUTHOR_WITH_PROVIDED_ID;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AuthorServiceTest {
+class AuthorServiceImplTest {
 
     @Mock
     private AuthorRepository authorRepository;
@@ -36,7 +43,7 @@ class AuthorServiceTest {
     private CustomValidator customValidator;
 
     @InjectMocks
-    private AuthorService authorService;
+    private AuthorServiceImpl authorServiceImpl;
 
     private Author author;
     private AuthorDtoRequest request;
@@ -58,7 +65,7 @@ class AuthorServiceTest {
     void readAll_ShouldThrowValidatorException_WhenInvalidSort() {
         when(authorRepository.readAll(0, 10, "bad")).thenThrow(InvalidDataAccessApiUsageException.class);
 
-        assertThatThrownBy(() -> authorService.readAll(0, 10, "bad"))
+        assertThatThrownBy(() -> authorServiceImpl.readAll(0, 10, "bad"))
                 .isInstanceOf(ValidatorException.class)
                 .hasMessageContaining(INVALID_VALUE_OF_SORTING.getErrorMessage());
     }
@@ -68,7 +75,7 @@ class AuthorServiceTest {
         when(authorRepository.readById(1L)).thenReturn(Optional.of(author));
         when(authorMapper.ModelAuthorToDTO(author)).thenReturn(response);
 
-        AuthorDtoResponse result = authorService.readById(1L);
+        AuthorDtoResponse result = authorServiceImpl.readById(1L);
 
         assertThat(result).isEqualTo(response);
     }
@@ -78,7 +85,7 @@ class AuthorServiceTest {
         long id = 1L;
         when(authorRepository.readById(id)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> authorService.readById(id))
+        assertThatThrownBy(() -> authorServiceImpl.readById(id))
                 .isInstanceOf(ElementNotFoundException.class)
                 .hasMessage(String.format(NO_AUTHOR_WITH_PROVIDED_ID.getErrorMessage(), id));
     }
@@ -90,7 +97,7 @@ class AuthorServiceTest {
         when(authorRepository.create(author)).thenReturn(author);
         when(authorMapper.ModelAuthorToDTO(author)).thenReturn(response);
 
-        AuthorDtoResponse result = authorService.create(request);
+        AuthorDtoResponse result = authorServiceImpl.create(request);
 
         verify(customValidator).validateAuthor(request);
         assertThat(result).isEqualTo(response);
@@ -100,7 +107,7 @@ class AuthorServiceTest {
     void create_ShouldThrow_WhenAuthorAlreadyExists() {
         when(authorRepository.readAuthorByName("John Doe")).thenReturn(Optional.of(author));
 
-        assertThatThrownBy(() -> authorService.create(request))
+        assertThatThrownBy(() -> authorServiceImpl.create(request))
                 .isInstanceOf(ValidatorException.class)
                 .hasMessageContaining(NOT_UNIQUE_AUTHOR_NAME.getErrorMessage());
     }
@@ -113,7 +120,7 @@ class AuthorServiceTest {
         when(authorRepository.update(any(Author.class))).thenReturn(author);
         when(authorMapper.ModelAuthorToDTO(author)).thenReturn(response);
 
-        AuthorDtoResponse result = authorService.update(1L, request);
+        AuthorDtoResponse result = authorServiceImpl.update(1L, request);
 
         verify(customValidator).validateAuthor(request);
         assertThat(result).isEqualTo(response);
@@ -125,7 +132,7 @@ class AuthorServiceTest {
         long id = 1L;
         when(authorRepository.existById(id)).thenReturn(false);
 
-        assertThatThrownBy(() -> authorService.update(id, request))
+        assertThatThrownBy(() -> authorServiceImpl.update(id, request))
                 .isInstanceOf(ElementNotFoundException.class)
                 .hasMessage(String.format(NO_AUTHOR_WITH_PROVIDED_ID.getErrorMessage(), id));
     }
@@ -135,7 +142,7 @@ class AuthorServiceTest {
         when(authorRepository.existById(1L)).thenReturn(true);
         when(authorRepository.readAuthorByName("John Doe")).thenReturn(Optional.of(author));
 
-        assertThatThrownBy(() -> authorService.update(1L, request))
+        assertThatThrownBy(() -> authorServiceImpl.update(1L, request))
                 .isInstanceOf(ValidatorException.class)
                 .hasMessageContaining(NOT_UNIQUE_AUTHOR_NAME.getErrorMessage());
     }
@@ -145,7 +152,7 @@ class AuthorServiceTest {
         when(authorRepository.existById(1L)).thenReturn(true);
         when(authorRepository.deleteById(1L)).thenReturn(true);
 
-        boolean result = authorService.deleteById(1L);
+        boolean result = authorServiceImpl.deleteById(1L);
 
         assertThat(result).isTrue();
     }
@@ -156,7 +163,7 @@ class AuthorServiceTest {
         long id = 1L;
 
         // when
-        Throwable thrown = catchThrowable(() -> authorService.deleteById(id));
+        Throwable thrown = catchThrowable(() -> authorServiceImpl.deleteById(id));
 
         // then
         assertThat(thrown)
@@ -171,7 +178,7 @@ class AuthorServiceTest {
         when(authorRepository.readAuthorByNewsId(99L)).thenReturn(Optional.of(author));
         when(authorMapper.ModelAuthorToDTO(author)).thenReturn(response);
 
-        AuthorDtoResponse result = authorService.readAuthorByNewsId(99L);
+        AuthorDtoResponse result = authorServiceImpl.readAuthorByNewsId(99L);
 
         assertThat(result).isEqualTo(response);
     }
@@ -181,7 +188,7 @@ class AuthorServiceTest {
         long newsId = 99L;
         when(authorRepository.readAuthorByNewsId(newsId)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> authorService.readAuthorByNewsId(newsId))
+        assertThatThrownBy(() -> authorServiceImpl.readAuthorByNewsId(newsId))
                 .isInstanceOf(ElementNotFoundException.class)
                 .hasMessage(String.format(NO_AUTHOR_FOR_NEWS_ID.getErrorMessage(), newsId));
     }

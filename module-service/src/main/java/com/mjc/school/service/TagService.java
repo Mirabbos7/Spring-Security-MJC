@@ -6,6 +6,6 @@ import com.mjc.school.security.service.BaseService;
 
 import java.util.List;
 
-public interface TagServiceInterface extends BaseService<TagDtoRequest, TagDtoResponse, Long> {
+public interface TagService extends BaseService<TagDtoRequest, TagDtoResponse, Long> {
     List<TagDtoResponse> readListOfTagsByNewsId(Long newsId);
 }

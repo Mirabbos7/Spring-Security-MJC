@@ -8,7 +8,7 @@ import com.mjc.school.dto.AuthorDtoResponse;
 import com.mjc.school.exception.ElementNotFoundException;
 import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.AuthorMapper;
-import com.mjc.school.service.AuthorServiceInterface;
+import com.mjc.school.service.AuthorService;
 import com.mjc.school.validation.CustomValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -27,7 +27,7 @@ import static com.mjc.school.exception.ErrorCodes.NO_AUTHOR_WITH_PROVIDED_ID;
 @Service("authorService")
 @Transactional
 @RequiredArgsConstructor
-public class AuthorService implements AuthorServiceInterface {
+public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
     private final AuthorMapper authorMapper;
     private final CustomValidator customValidator;

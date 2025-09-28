@@ -12,7 +12,7 @@ import com.mjc.school.dto.CommentDtoResponse;
 import com.mjc.school.exception.ElementNotFoundException;
 import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.CommentMapper;
-import com.mjc.school.service.CommentServiceInterface;
+import com.mjc.school.service.CommentService;
 import com.mjc.school.validation.CustomValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -30,7 +30,7 @@ import static com.mjc.school.exception.ErrorCodes.NO_COMMENT_WITH_PROVIDED_ID;
 @Service("commentService")
 @Transactional
 @RequiredArgsConstructor
-public class CommentService implements CommentServiceInterface {
+public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
     private final NewsRepository newsRepository;

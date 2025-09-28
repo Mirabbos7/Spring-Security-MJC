@@ -7,7 +7,7 @@ import com.mjc.school.dto.TagDtoResponse;
 import com.mjc.school.exception.ElementNotFoundException;
 import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.TagMapper;
-import com.mjc.school.service.TagServiceInterface;
+import com.mjc.school.service.TagService;
 import com.mjc.school.validation.CustomValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -26,7 +26,7 @@ import static com.mjc.school.exception.ErrorCodes.NO_TAG_WITH_PROVIDED_ID;
 @Service("tagsService")
 @Transactional
 @RequiredArgsConstructor
-public class TagsService implements TagServiceInterface {
+public class TagsServiceImpl implements TagService {
     private final TagRepository tagsRepository;
     private final TagMapper tagMapper;
     private final CustomValidator customValidator;

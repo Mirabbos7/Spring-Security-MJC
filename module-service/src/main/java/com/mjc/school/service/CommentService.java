@@ -6,6 +6,6 @@ import com.mjc.school.security.service.BaseService;
 
 import java.util.List;
 
-public interface CommentServiceInterface extends BaseService<CommentDtoRequest, CommentDtoResponse, Long> {
+public interface CommentService extends BaseService<CommentDtoRequest, CommentDtoResponse, Long> {
     List<CommentDtoResponse> readListOfCommentsByNewsId(Long newsId);
 }
