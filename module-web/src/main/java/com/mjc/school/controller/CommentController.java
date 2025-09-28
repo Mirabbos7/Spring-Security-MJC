@@ -4,7 +4,7 @@ import com.mjc.school.annotation.CommandParam;
 import com.mjc.school.hateoas.LinkHelper;
 import com.mjc.school.dto.CommentDtoRequest;
 import com.mjc.school.dto.CommentDtoResponse;
-import com.mjc.school.service.CommentServiceInterface;
+import com.mjc.school.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -31,7 +31,7 @@ import java.util.List;
 @RequestMapping(value = "api/v1/comment", produces = "application/json")
 @Api(value = "Comments", description = "Operations for creating, updating, retrieving and deleting comment in the application")
 public class CommentController implements BaseController<CommentDtoRequest, CommentDtoResponse, Long> {
-    private final CommentServiceInterface commentService;
+    private final CommentService commentService;
 
     @Override
     @GetMapping

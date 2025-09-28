@@ -3,7 +3,7 @@ package com.mjc.school.controller;
 import com.mjc.school.hateoas.LinkHelper;
 import com.mjc.school.dto.AuthorDtoRequest;
 import com.mjc.school.dto.AuthorDtoResponse;
-import com.mjc.school.service.AuthorServiceInterface;
+import com.mjc.school.service.AuthorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -35,7 +35,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthorController implements BaseController<AuthorDtoRequest, AuthorDtoResponse, Long> {
 
-    private final AuthorServiceInterface authorService;
+    private final AuthorService authorService;
 
     @Override
     @GetMapping("/readAll")

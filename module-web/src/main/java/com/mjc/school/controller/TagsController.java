@@ -4,7 +4,7 @@ import com.mjc.school.annotation.CommandParam;
 import com.mjc.school.hateoas.LinkHelper;
 import com.mjc.school.dto.TagDtoRequest;
 import com.mjc.school.dto.TagDtoResponse;
-import com.mjc.school.service.TagServiceInterface;
+import com.mjc.school.service.TagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -33,7 +33,7 @@ import java.util.List;
 @Api(value = "Tags", description = "Operations for creating, updating, retrieving and deleting tag in the application")
 public class TagsController implements BaseController<TagDtoRequest, TagDtoResponse, Long> {
 
-    private final TagServiceInterface tagsService;
+    private final TagService tagsService;
 
     @Override
     @GetMapping

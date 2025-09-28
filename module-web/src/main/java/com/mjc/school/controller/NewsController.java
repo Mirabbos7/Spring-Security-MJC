@@ -9,10 +9,10 @@ import com.mjc.school.dto.NewsDtoResponse;
 import com.mjc.school.dto.NewsPageDtoResponse;
 import com.mjc.school.dto.TagDtoResponse;
 import com.mjc.school.hateoas.LinkHelper;
-import com.mjc.school.service.AuthorServiceInterface;
-import com.mjc.school.service.CommentServiceInterface;
-import com.mjc.school.service.NewsServiceInterface;
-import com.mjc.school.service.TagServiceInterface;
+import com.mjc.school.service.AuthorService;
+import com.mjc.school.service.CommentService;
+import com.mjc.school.service.NewsService;
+import com.mjc.school.service.TagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -41,10 +41,10 @@ import java.util.List;
 @Api(value = "News", description = "Operations for creating, updating, retrieving and deleting news in the application")
 public class NewsController implements NewsControllerInterface<NewsDtoRequest, NewsDtoResponse, Long> {
 
-    private final NewsServiceInterface<NewsDtoRequest, NewsDtoResponse, Long> newsService;
-    private final AuthorServiceInterface authorService;
-    private final TagServiceInterface tagService;
-    private final CommentServiceInterface commentService;
+    private final NewsService<NewsDtoRequest, NewsDtoResponse, Long> newsService;
+    private final AuthorService authorService;
+    private final TagService tagService;
+    private final CommentService commentService;
 
     @GetMapping
     @Override
