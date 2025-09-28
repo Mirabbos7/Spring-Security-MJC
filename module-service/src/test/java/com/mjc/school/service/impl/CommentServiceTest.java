@@ -22,10 +22,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mjc.school.exception.ErrorCodes.*;
+import static com.mjc.school.exception.ErrorCodes.INVALID_VALUE_OF_SORTING;
+import static com.mjc.school.exception.ErrorCodes.NO_COMMENTS_FOR_NEWS_ID;
+import static com.mjc.school.exception.ErrorCodes.NO_COMMENT_WITH_PROVIDED_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -37,7 +41,7 @@ class CommentServiceTest {
     private CommentRepository commentRepository;
 
     @InjectMocks
-    private CommentService commentService;
+    private CommentServiceImpl commentService;
 
     @Mock
     private CommentMapper commentMapper;

@@ -19,11 +19,19 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mjc.school.exception.ErrorCodes.*;
+import static com.mjc.school.exception.ErrorCodes.INVALID_VALUE_OF_SORTING;
+import static com.mjc.school.exception.ErrorCodes.NOT_UNIQUE_TAGS_NAME;
+import static com.mjc.school.exception.ErrorCodes.NO_NEWS_WITH_PROVIDED_ID;
+import static com.mjc.school.exception.ErrorCodes.NO_TAGS_FOR_NEWS_ID;
+import static com.mjc.school.exception.ErrorCodes.NO_TAG_WITH_PROVIDED_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class TagsServiceTest {
@@ -33,7 +41,7 @@ class TagsServiceTest {
     @Mock private CustomValidator customValidator;
 
     @InjectMocks
-    private TagsService tagsService;
+    private TagsServiceImpl tagsService;
 
     private TagDtoRequest request;
     private Tag tag;

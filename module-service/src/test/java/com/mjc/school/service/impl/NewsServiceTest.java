@@ -1,6 +1,11 @@
 package com.mjc.school.service.impl;
 
-import com.mjc.school.dto.*;
+import com.mjc.school.dto.AuthorDtoResponse;
+import com.mjc.school.dto.CommentDtoResponse;
+import com.mjc.school.dto.NewsDtoRequest;
+import com.mjc.school.dto.NewsDtoResponse;
+import com.mjc.school.dto.NewsPageDtoResponse;
+import com.mjc.school.dto.TagDtoResponse;
 import com.mjc.school.exception.ElementNotFoundException;
 import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.NewsMapper;
@@ -31,7 +36,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class NewsServiceTest {
@@ -48,7 +55,7 @@ class NewsServiceTest {
     private CustomValidator customValidator;
 
     @InjectMocks
-    private NewsService newsService;
+    private NewsServiceImpl newsService;
 
     private NewsDtoRequest request;
     private News news;

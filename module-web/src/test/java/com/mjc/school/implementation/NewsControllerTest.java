@@ -1,10 +1,15 @@
 package com.mjc.school.implementation;
 
-import com.mjc.school.dto.*;
-import com.mjc.school.service.AuthorServiceInterface;
-import com.mjc.school.service.CommentServiceInterface;
-import com.mjc.school.service.NewsServiceInterface;
-import com.mjc.school.service.TagServiceInterface;
+import com.mjc.school.dto.AuthorDtoResponse;
+import com.mjc.school.dto.CommentDtoResponse;
+import com.mjc.school.dto.NewsDtoRequest;
+import com.mjc.school.dto.NewsDtoResponse;
+import com.mjc.school.dto.NewsPageDtoResponse;
+import com.mjc.school.dto.TagDtoResponse;
+import com.mjc.school.service.AuthorService;
+import com.mjc.school.service.CommentService;
+import com.mjc.school.service.NewsService;
+import com.mjc.school.service.TagService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +27,12 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,16 +42,16 @@ class NewsControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private NewsServiceInterface<NewsDtoRequest, NewsDtoResponse, Long> newsService;
+    private NewsService<NewsDtoRequest, NewsDtoResponse, Long> newsService;
 
     @MockBean
-    private AuthorServiceInterface authorService;
+    private AuthorService authorService;
 
     @MockBean
-    private TagServiceInterface tagService;
+    private TagService tagService;
 
     @MockBean
-    private CommentServiceInterface commentService;
+    private CommentService commentService;
 
     @Test
     @WithMockUser(roles = "USER")
