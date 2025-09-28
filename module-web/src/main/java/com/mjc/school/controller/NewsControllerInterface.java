@@ -1,4 +1,4 @@
-package com.mjc.school.interfaces;
+package com.mjc.school.controller;
 
 import com.mjc.school.dto.NewsPageDtoResponse;
 import org.springframework.hateoas.EntityModel;

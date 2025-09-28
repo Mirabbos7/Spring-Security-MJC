@@ -1,4 +1,4 @@
-package com.mjc.school.exceptions;
+package com.mjc.school.exception;
 
 public enum ErrorCodes {
     NO_NEWS_WITH_PROVIDED_ID("40401", "News with this id: %d does not exist."),

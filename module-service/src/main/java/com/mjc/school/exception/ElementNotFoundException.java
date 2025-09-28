@@ -1,4 +1,4 @@
-package com.mjc.school.exceptions;
+package com.mjc.school.exception;
 
 public class ElementNotFoundException extends RuntimeException {
     public ElementNotFoundException(String message) {
