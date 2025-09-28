@@ -51,5 +51,18 @@ public class CustomValidator {
         validateLength(comment.content(), COMMENTS_CONTENT_MIN_LENGTH, COMMENTS_CONTENT_MAX_LENGTH, ERROR_OF_COMMENTS_CONTENT);
     }
 
+    public void validateAuthorName(String authorName) {
+        if (authorName == null || authorName.isBlank()) {
+            throw new ValidationException(String.format(ErrorCodes.VALIDATION.getErrorMessage(), ERROR_OF_AUTHORS_NAME));
+        }
+        validateLength(authorName, AUTHOR_NAME_MIN_LENGTH, AUTHOR_NAME_MAX_LENGTH, ERROR_OF_AUTHORS_NAME);
+    }
+
+    public void validateTagName(String tagName) {
+        if (tagName == null || tagName.isBlank()) {
+            throw new ValidationException(String.format(ErrorCodes.VALIDATION.getErrorMessage(), ERROR_OF_TAGS_NAME));
+        }
+        validateLength(tagName, TAG_NAME_MIN_LENGTH, TAG_NAME_MAX_LENGTH, ERROR_OF_TAGS_NAME);
+    }
 }
 
