@@ -1,8 +1,6 @@
 package com.mjc.school.service.impl;
 
-import com.mjc.school.dto.NewsDtoRequest;
-import com.mjc.school.dto.NewsDtoResponse;
-import com.mjc.school.dto.NewsPageDtoResponse;
+import com.mjc.school.dto.*;
 import com.mjc.school.exception.ElementNotFoundException;
 import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.NewsMapper;
@@ -27,12 +25,13 @@ import java.util.Optional;
 import static com.mjc.school.exception.ErrorCodes.NO_NEWS_WITH_PROVIDED_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class NewsServiceTest {
@@ -184,4 +183,145 @@ class NewsServiceTest {
         assertThatThrownBy(() -> newsService.deleteById(1L))
                 .isInstanceOf(ElementNotFoundException.class);
     }
+
+    @Test
+    void update_ShouldThrowValidatorException_WhenTitleAlreadyExists() {
+        Long id = 1L;
+
+        when(newsRepository.existById(id)).thenReturn(true);
+        when(newsRepository.readNewsByTitle(request.title()))
+                .thenReturn(Optional.of(new News()));
+
+        assertThrows(ValidatorException.class,
+                () -> newsService.update(id, request));
+
+        verify(customValidator).validateNews(request);
+        verify(newsMapper, never()).DTONewsToModel(any());
+        verify(newsRepository, never()).update(any());
+    }
+
+    @Test
+    void readListOfNewsByParams_ShouldReturnMappedDtos() {
+        List<News> newsModels = List.of(new News());
+
+        AuthorDtoResponse authorDto = new AuthorDtoResponse(1L, "Author Name", "", "");
+        List<TagDtoResponse> tags = List.of(new TagDtoResponse(1L, "tag1"));
+        List<CommentDtoResponse> comments = List.of(new CommentDtoResponse(1L, "Nice article", "", "", 1L));
+
+        List<NewsDtoResponse> dtoResponses = List.of(
+                new NewsDtoResponse(
+                        1L,
+                        "Some title",
+                        "Some content",
+                        "2025-09-28",
+                        "2025-09-28",
+                        authorDto,
+                        tags,
+                        comments
+                )
+        );
+
+        when(newsRepository.readListOfNewsByParams(
+                anyList(), anyList(), anyString(), anyString(), anyString()))
+                .thenReturn(newsModels);
+
+        when(newsMapper.ModelListToDtoList(newsModels)).thenReturn(dtoResponses);
+
+        List<NewsDtoResponse> result = newsService.readListOfNewsByParams(
+                List.of("tag1"), List.of(1L), "Author Name", "Some title", "Some content");
+
+        assertEquals(1, result.size());
+        assertEquals("Some title", result.get(0).title());
+        assertEquals("Author Name", result.get(0).authorDtoResponse().name());
+        assertEquals("tag1", result.get(0).tagList().get(0).name());
+        assertEquals("Nice article", result.get(0).commentList().get(0).content());
+
+        verify(newsRepository).readListOfNewsByParams(anyList(), anyList(), anyString(), anyString(), anyString());
+        verify(newsMapper).ModelListToDtoList(newsModels);
+    }
+    @Test
+    void createNotExistTags_ShouldCreateTags_WhenValidAndNotExists() {
+        List<String> tagNames = List.of("validTag");
+
+        when(tagRepository.readTagByName("validTag")).thenReturn(Optional.empty());
+
+        newsService.createNotExistTags(tagNames);
+
+        verify(tagRepository).create(any(Tag.class));
+    }
+
+    @Test
+    void createNotExistTags_ShouldThrow_WhenTagTooShort() {
+        List<String> tagNames = List.of("ab");
+
+        assertThrows(ValidatorException.class,
+                () -> newsService.createNotExistTags(tagNames));
+
+        verify(tagRepository, never()).create(any());
+    }
+
+    @Test
+    void createNotExistTags_ShouldThrow_WhenTagTooLong() {
+        List<String> tagNames = List.of("a".repeat(20));
+
+        assertThrows(ValidatorException.class,
+                () -> newsService.createNotExistTags(tagNames));
+
+        verify(tagRepository, never()).create(any());
+    }
+
+    @Test
+    void createNotExistTags_ShouldNotCreate_WhenTagAlreadyExists() {
+        List<String> tagNames = List.of("validTag");
+
+        when(tagRepository.readTagByName("validTag")).thenReturn(Optional.of(new Tag()));
+
+        newsService.createNotExistTags(tagNames);
+
+        verify(tagRepository, never()).create(any());
+    }
+
+    @Test
+    void createNotExistAuthor_ShouldCreateAuthor_WhenValidAndNotExists() {
+        String authorName = "ValidAuthor";
+
+        when(authorRepository.readAuthorByName(authorName)).thenReturn(Optional.empty());
+
+        newsService.createNotExistAuthor(authorName);
+
+        verify(authorRepository).create(any(Author.class));
+    }
+
+    @Test
+    void createNotExistAuthor_ShouldThrow_WhenNameTooShort() {
+        String authorName = "aa";
+
+        assertThrows(ValidatorException.class,
+                () -> newsService.createNotExistAuthor(authorName));
+
+        verify(authorRepository, never()).create(any());
+    }
+
+    @Test
+    void createNotExistAuthor_ShouldThrow_WhenNameTooLong() {
+        String authorName = "a".repeat(20);
+
+        assertThrows(ValidatorException.class,
+                () -> newsService.createNotExistAuthor(authorName));
+
+        verify(authorRepository, never()).create(any());
+    }
+
+    @Test
+    void createNotExistAuthor_ShouldNotCreate_WhenAuthorAlreadyExists() {
+        String authorName = "ValidAuthor";
+
+        when(authorRepository.readAuthorByName(authorName)).thenReturn(Optional.of(new Author()));
+
+        newsService.createNotExistAuthor(authorName);
+
+        verify(authorRepository, never()).create(any());
+    }
+
+
 }
