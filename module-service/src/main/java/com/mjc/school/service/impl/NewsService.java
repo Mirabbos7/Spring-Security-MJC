@@ -118,7 +118,7 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
         return newsMapper.ModelListToDtoList(newsRepository.readListOfNewsByParams(tagName, tagId, authorName, title, content));
     }
 
-    private void createNotExistAuthor(String authorName) {
+    public void createNotExistAuthor(String authorName) {
         if (authorName != null && !authorName.equals("")) {
             if (authorName.length() < AUTHOR_NAME_MAX_LENGTH && authorName.length() > AUTHOR_NAME_MIN_LENGTH && !authorName.isBlank()) {
                 if (authorRepository.readAuthorByName(authorName).isEmpty()) {
@@ -133,7 +133,7 @@ public class NewsService implements NewsServiceInterface<NewsDtoRequest, NewsDto
         }
     }
 
-    private void createNotExistTags(List<String> tagNames) {
+    public void createNotExistTags(List<String> tagNames) {
         tagNames.stream().filter(name -> tagRepository.readTagByName(name).isEmpty()).map(name -> {
             if (name.length() >= TAG_NAME_MIN_LENGTH && name.length() < TAG_NAME_MAX_LENGTH && !name.isBlank()) {
                 Tag tagModel = new Tag();
