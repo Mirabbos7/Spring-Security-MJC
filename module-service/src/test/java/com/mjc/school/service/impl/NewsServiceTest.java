@@ -77,8 +77,8 @@ class NewsServiceTest {
 
         NewsPageDtoResponse result = newsService.readAll(0, 10, "id");
 
-        assertThat(result.getNewsList()).hasSize(1);
-        assertThat(result.getTotalNewsCount()).isEqualTo(1);
+        assertThat(result.newsList()).hasSize(1);
+        assertThat(result.totalNewsCount()).isEqualTo(1);
     }
 
     @Test
