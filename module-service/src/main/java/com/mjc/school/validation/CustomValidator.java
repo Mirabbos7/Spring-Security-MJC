@@ -5,9 +5,14 @@ import com.mjc.school.dto.CommentDtoRequest;
 import com.mjc.school.dto.NewsDtoRequest;
 import com.mjc.school.dto.TagDtoRequest;
 import com.mjc.school.exception.ErrorCodes;
+import com.mjc.school.exception.ValidatorException;
+import com.mjc.school.model.Author;
+import com.mjc.school.model.Tag;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ValidationException;
+import java.util.List;
+import java.util.Optional;
 
 
 @Component
@@ -51,18 +56,33 @@ public class CustomValidator {
         validateLength(comment.content(), COMMENTS_CONTENT_MIN_LENGTH, COMMENTS_CONTENT_MAX_LENGTH, ERROR_OF_COMMENTS_CONTENT);
     }
 
-    public void validateAuthorName(String authorName) {
-        if (authorName == null || authorName.isBlank()) {
-            throw new ValidationException(String.format(ErrorCodes.VALIDATION.getErrorMessage(), ERROR_OF_AUTHORS_NAME));
+    public void validateAuthorNameAndExistence(String authorName, Optional<Author> existingAuthor) {
+        if (authorName != null && !authorName.isBlank()) {
+            if (authorName.length() <= AUTHOR_NAME_MIN_LENGTH || authorName.length() >= AUTHOR_NAME_MAX_LENGTH) {
+                throw new ValidatorException(
+                        String.format(ErrorCodes.VALIDATION.getErrorMessage(),
+                                "Length of author`s name must be between 3 and 15"));
+            }
+            if (existingAuthor.isPresent()) {
+                throw new ValidatorException("Author already exists");
+            }
+        } else {
+            throw new ValidatorException("Author name cannot be empty");
         }
-        validateLength(authorName, AUTHOR_NAME_MIN_LENGTH, AUTHOR_NAME_MAX_LENGTH, ERROR_OF_AUTHORS_NAME);
     }
 
-    public void validateTagName(String tagName) {
-        if (tagName == null || tagName.isBlank()) {
-            throw new ValidationException(String.format(ErrorCodes.VALIDATION.getErrorMessage(), ERROR_OF_TAGS_NAME));
+    public void validateTagNamesAndExistence(List<String> tagNames, List<Optional<Tag>> existingTags) {
+        for (int i = 0; i < tagNames.size(); i++) {
+            String tagName = tagNames.get(i);
+            if (tagName.isBlank() || tagName.length() < TAG_NAME_MIN_LENGTH || tagName.length() >= TAG_NAME_MAX_LENGTH) {
+                throw new ValidatorException(
+                        String.format(ErrorCodes.VALIDATION.getErrorMessage(),
+                                "Length of tag`s name must be between 3 and 15"));
+            }
+            if (existingTags.get(i).isPresent()) {
+                throw new ValidatorException("Tag with name '" + tagName + "' already exists");
+            }
         }
-        validateLength(tagName, TAG_NAME_MIN_LENGTH, TAG_NAME_MAX_LENGTH, ERROR_OF_TAGS_NAME);
     }
 }
 
