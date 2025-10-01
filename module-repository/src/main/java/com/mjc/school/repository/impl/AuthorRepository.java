@@ -7,6 +7,7 @@ import com.mjc.school.model.Author;
 import com.mjc.school.repository.AbstractDBRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class AuthorRepository extends AbstractDBRepository<Author, Long> {
         TypedQuery<Author> typedQuery = entityManager.createQuery("SELECT a FROM Author a WHERE a.name LIKE:name", Author.class).setParameter("name",  name );
         try {
             return Optional.of(typedQuery.getSingleResult());
-        } catch (Exception e) {
+        } catch (NoResultException e) {
             return Optional.empty();
         }
     }
