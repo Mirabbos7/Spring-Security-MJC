@@ -36,6 +36,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -128,6 +130,9 @@ class NewsServiceTest {
     @Test
     void create_ShouldThrow_WhenEmptyAuthor() {
         NewsDtoRequest badRequest = new NewsDtoRequest("t", "c", " ", List.of("tag"));
+
+        doThrow(new ValidatorException("Author name cannot be empty"))
+                .when(customValidator).validateAuthorNameAndExistence(eq(" "), any());
 
         assertThatThrownBy(() -> newsService.create(badRequest))
                 .isInstanceOf(ValidatorException.class)
