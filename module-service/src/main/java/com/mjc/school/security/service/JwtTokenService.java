@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Component
 public class JwtTokenService implements Serializable {
-    public static final long JWT_TOKEN_VALIDITY = 1 * 60 * 60;
+    public static final long JWT_TOKEN_VALIDITY = 60 * 60;
     private final String SECRET_KEY = "secret";
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
