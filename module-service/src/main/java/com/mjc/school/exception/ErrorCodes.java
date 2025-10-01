@@ -1,5 +1,8 @@
 package com.mjc.school.exception;
 
+import lombok.Getter;
+
+@Getter
 public enum ErrorCodes {
     NO_NEWS_WITH_PROVIDED_ID("40401", "News with this id: %d does not exist."),
     NO_AUTHOR_WITH_PROVIDED_ID("40402", "Author with this id: %d does not exist."),
@@ -19,10 +22,6 @@ public enum ErrorCodes {
 
     ErrorCodes(String errorCode, String errMessage) {
         this.errorMessage = "errorMessage: " + errMessage + ",  errorCode: " + errorCode;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
     }
 
 }
