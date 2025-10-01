@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("authorRepository")
+@Repository
 public class AuthorRepository extends AbstractDBRepository<Author, Long> {
     @Override
     public List<Author> readAll(int page, int size, String sortBy) {
@@ -29,20 +29,11 @@ public class AuthorRepository extends AbstractDBRepository<Author, Long> {
     }
 
     public Optional<Author> readAuthorByNewsId(Long newsId) {
-        Optional<Author> result = Optional.of(entityManager.createQuery("SELECT a FROM Author a INNER JOIN a.newsModelListWithId b WHERE b.id=:newsId", Author.class).setParameter("newsId", newsId).getSingleResult());
-        return result;
+        return Optional.of(entityManager.createQuery("SELECT a FROM Author a INNER JOIN a.newsModelListWithId b WHERE b.id=:newsId", Author.class).setParameter("newsId", newsId).getSingleResult());
     }
 
     public Optional<Author> readAuthorByName(String name) {
         TypedQuery<Author> typedQuery = entityManager.createQuery("SELECT a FROM Author a WHERE a.name LIKE:name", Author.class).setParameter("name",  name );
-        try {
-            return Optional.of(typedQuery.getSingleResult());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-    }
-    public Optional<Author> readAuthorByPartName(String name) {
-        TypedQuery<Author> typedQuery = entityManager.createQuery("SELECT a FROM Author a WHERE a.name LIKE:name", Author.class).setParameter("name", "%" + name + "%" );
         try {
             return Optional.of(typedQuery.getSingleResult());
         } catch (Exception e) {

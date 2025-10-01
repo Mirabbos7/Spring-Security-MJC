@@ -6,12 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("commentRepository")
+@Repository
 public class CommentRepository extends AbstractDBRepository<Comment, Long> {
 
     public List<Comment> readListOfCommentsByNewsId(Long newsId) {
-        List<Comment> result = entityManager.createQuery("SELECT a FROM Comment a INNER JOIN a.newsModel b WHERE b.id=:newsId", Comment.class).setParameter("newsId", newsId).getResultList();
-        return result;
+        return entityManager.createQuery("SELECT a FROM Comment a INNER JOIN a.newsModel b WHERE b.id=:newsId", Comment.class).setParameter("newsId", newsId).getResultList();
     }
 
     @Override

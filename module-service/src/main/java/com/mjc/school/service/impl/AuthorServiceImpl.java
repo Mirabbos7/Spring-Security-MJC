@@ -24,7 +24,7 @@ import static com.mjc.school.exception.ErrorCodes.NOT_UNIQUE_AUTHOR_NAME;
 import static com.mjc.school.exception.ErrorCodes.NO_AUTHOR_FOR_NEWS_ID;
 import static com.mjc.school.exception.ErrorCodes.NO_AUTHOR_WITH_PROVIDED_ID;
 
-@Service("authorService")
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
@@ -63,7 +63,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     }
 
-
     @Override
     @Transactional
     public AuthorDtoResponse update(Long id, @Valid AuthorDtoRequest updateRequest) {
@@ -90,7 +89,6 @@ public class AuthorServiceImpl implements AuthorService {
             throw new ElementNotFoundException(String.format(NO_AUTHOR_WITH_PROVIDED_ID.getErrorMessage(), id));
         }
     }
-
 
     @Override
     public AuthorDtoResponse readAuthorByNewsId(Long newsId) {

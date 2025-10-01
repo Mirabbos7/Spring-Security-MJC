@@ -9,13 +9,12 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("tagRepository")
+@Repository
 public class TagRepository extends AbstractDBRepository<Tag, Long> {
 
 
     public List<Tag> readListOfTagsByNewsId(Long newsId) {
-        List<Tag> result = entityManager.createQuery("SELECT a FROM Tag a INNER JOIN a.news b WHERE b.id=:newsId", Tag.class).setParameter("newsId", newsId).getResultList();
-        return result;
+        return entityManager.createQuery("SELECT a FROM Tag a INNER JOIN a.news b WHERE b.id=:newsId", Tag.class).setParameter("newsId", newsId).getResultList();
     }
 
     public Optional<Tag> readTagByName(String name) {

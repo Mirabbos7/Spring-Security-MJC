@@ -27,7 +27,7 @@ import static com.mjc.school.exception.ErrorCodes.INVALID_VALUE_OF_SORTING;
 import static com.mjc.school.exception.ErrorCodes.NO_COMMENTS_FOR_NEWS_ID;
 import static com.mjc.school.exception.ErrorCodes.NO_COMMENT_WITH_PROVIDED_ID;
 
-@Service("commentService")
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
@@ -95,8 +95,6 @@ public class CommentServiceImpl implements CommentService {
             return commentMapper.listModelToDtoList(commentRepository.readListOfCommentsByNewsId(newsId));
         } else {
             throw new ElementNotFoundException(String.format(NO_COMMENTS_FOR_NEWS_ID.getErrorMessage(), newsId));
-
-
         }
     }
 }

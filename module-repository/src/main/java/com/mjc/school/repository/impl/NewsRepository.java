@@ -6,6 +6,7 @@ import com.mjc.school.model.Tag;
 import com.mjc.school.repository.AbstractDBRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,7 +16,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("newsRepository")
+@Repository
 public class NewsRepository extends AbstractDBRepository<News, Long> {
     public List<News> readListOfNewsByParams(List<String> tagName, List<Long> tagId, String authorName, String title, String content) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -53,11 +54,7 @@ public class NewsRepository extends AbstractDBRepository<News, Long> {
         prevState.setTitle(nextState.getTitle());
 
         prevState.setContent(nextState.getContent());
-
-        Author authorModel = nextState.getAuthorModel();
         prevState.setAuthorModel(nextState.getAuthorModel());
-
-        List<Tag> tagModels = nextState.getTags();
         prevState.setTags(nextState.getTags());
 
     }
@@ -66,7 +63,7 @@ public class NewsRepository extends AbstractDBRepository<News, Long> {
         TypedQuery<News> typedQuery = entityManager.createQuery("SELECT a FROM News a WHERE a.title LIKE:title", News.class).setParameter("title", title);
         try {
             return Optional.of(typedQuery.getSingleResult());
-        } catch (Exception e) {
+        } catch (NoResultException e) {
             return Optional.empty();
         }
     }

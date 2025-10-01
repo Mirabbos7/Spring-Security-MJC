@@ -23,7 +23,7 @@ import static com.mjc.school.exception.ErrorCodes.NO_NEWS_WITH_PROVIDED_ID;
 import static com.mjc.school.exception.ErrorCodes.NO_TAGS_FOR_NEWS_ID;
 import static com.mjc.school.exception.ErrorCodes.NO_TAG_WITH_PROVIDED_ID;
 
-@Service("tagsService")
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class TagsServiceImpl implements TagService {
