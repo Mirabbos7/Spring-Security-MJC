@@ -1,5 +1,12 @@
 package com.mjc.school.model;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,9 +17,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "tags")
 public class Tag implements BaseEntity<Long> {
@@ -26,52 +38,4 @@ public class Tag implements BaseEntity<Long> {
 
     @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
     private List<News> news = new ArrayList<>();
-
-    public Tag() {
-    }
-    public Tag(String name) {}
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<News> getNews() {
-        return news;
-    }
-
-    public void setNews(List<News> news) {
-        this.news = news;
-    }
-
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-        Tag tagModel = (Tag) obj;
-        return id == tagModel.id &&
-                (name == tagModel.name || (name != null && name.equals(tagModel.getName())));
-    }
-
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
-
-    public String toString() {
-        return "Tag's ID: " + id + ", tag's name: " + name;
-    }
 }

@@ -1,6 +1,11 @@
 package com.mjc.school.model;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,10 +24,15 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "author")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@EqualsAndHashCode
+@ToString
 @EntityListeners(AuditingEntityListener.class)
 public class Author implements BaseEntity<Long> {
     @javax.persistence.Id
@@ -48,17 +58,6 @@ public class Author implements BaseEntity<Long> {
     @OneToMany(mappedBy = "authorModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<News> newsModelListWithId = new ArrayList<>();
 
-
-    public Author() {
-    }
-
-    public Author(Long id, String name, LocalDateTime createDate, LocalDateTime lastUpdateDate) {
-        this.id = id;
-        this.name = name;
-        this.createDate = createDate;
-        this.lastUpdateDate = lastUpdateDate;
-    }
-
     @Override
     public Long getId() {
         return id;
@@ -68,59 +67,5 @@ public class Author implements BaseEntity<Long> {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalDateTime getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
-
-    public List<News> getNewsModelListWithId() {
-        return newsModelListWithId;
-    }
-
-    public void setNewsModelListWithId(List<News> newsModelListWithId) {
-        this.newsModelListWithId = newsModelListWithId;
-
-
-    }
-
-
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-        Author authorModel = (Author) obj;
-        return id == authorModel.id &&
-                (name == authorModel.name || (name != null && name.equals(authorModel.getName()))) &&
-                (createDate == authorModel.createDate || (createDate != null && createDate.equals(authorModel.getCreateDate()))) &&
-                (lastUpdateDate == authorModel.lastUpdateDate || (lastUpdateDate != null && lastUpdateDate.equals(authorModel.getLastUpdateDate())));
-    }
-
-    public int hashCode() {
-        return Objects.hash(id, name, createDate, lastUpdateDate);
-    }
-
-    public String toString() {
-        return "Author's ID: " + id + ", author's name: " + name + ", create date: " + createDate + ", last update date: " + lastUpdateDate;
-    }
-
 
 }

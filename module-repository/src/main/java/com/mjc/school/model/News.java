@@ -1,6 +1,11 @@
 package com.mjc.school.model;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,13 +28,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 
 @Entity
 @Table(name = "news")
 @AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 public class News implements BaseEntity<Long>, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,52 +63,7 @@ public class News implements BaseEntity<Long>, Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tags_of_news", joinColumns = @JoinColumn(name = "news_id"), inverseJoinColumns = @JoinColumn(name = "tags_id"))
-    private List<Tag> tags = new ArrayList<>();
-
-    public News() {
-
-    }
-    public News(Long id, String title, String content, Author authorModel) {
-
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalDateTime getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-
-    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
-
+    private List<Tag> tags;
 
     @Override
     public Long getId() {
@@ -113,57 +76,7 @@ public class News implements BaseEntity<Long>, Serializable {
         this.id = id;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-        News newsModel = (News) obj;
-        return id == newsModel.id &&
-                (title == newsModel.title || (title != null && title.equals(newsModel.getTitle()))) &&
-                (content == newsModel.content || (content != null && content.equals(newsModel.getContent()))) &&
-                (createDate == newsModel.createDate || (createDate != null && createDate.equals(newsModel.getCreateDate()))) &&
-                (lastUpdateDate == newsModel.lastUpdateDate || (lastUpdateDate != null && lastUpdateDate.equals(newsModel.getLastUpdateDate()))
-                );
-    }
-
-    public int hashCode() {
-        return Objects.hash(id, title, content, createDate, lastUpdateDate);
-    }
-
-    public String toString() {
-        return "news ID: " + id + ", title: " + title + ", content: " + content + ", create date: " + createDate + ", last update date: " + lastUpdateDate;
-    }
-
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public Author getAuthorModel() {
-        return authorModel;
-    }
-
-    public void setAuthorModel(Author authorModel) {
-        this.authorModel = authorModel;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public void addComment(Comment commentModel) {
-        comments.add(commentModel);
+    public void addComment(Comment comment){
+        comments.add(comment);
     }
 }

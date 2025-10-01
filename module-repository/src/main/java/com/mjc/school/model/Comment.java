@@ -1,6 +1,11 @@
 package com.mjc.school.model;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,11 +22,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "comment")
 @AllArgsConstructor
+@Setter
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 @EntityListeners(AuditingEntityListener.class)
 public class Comment implements BaseEntity<Long> {
     @Id
@@ -45,10 +54,6 @@ public class Comment implements BaseEntity<Long> {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"M/d/yy", "dd.MM.yyyy"})
     private LocalDateTime modified;
 
-
-    public Comment() {
-    }
-
     @Override
     public Long getId() {
         return id;
@@ -58,59 +63,5 @@ public class Comment implements BaseEntity<Long> {
     public void setId(Long id) {
         this.id = id;
 
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDateTime getModified() {
-        return modified;
-    }
-
-    public void setModified(LocalDateTime modified) {
-        this.modified = modified;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public News getNewsModel() {
-        return newsModel;
-    }
-
-    public void setNewsModel(News newsModel) {
-        this.newsModel = newsModel;
-    }
-
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-        Comment authorModel = (Comment) obj;
-        return id == authorModel.id &&
-                (content == authorModel.content || (content != null && content.equals(authorModel.getContent()))) &&
-                (created == authorModel.created || (created != null && created.equals(authorModel.getCreated()))) &&
-                (modified == authorModel.modified || (modified != null && modified.equals(authorModel.getModified())));
-    }
-
-    public int hashCode() {
-        return Objects.hash(id, content, created, modified);
-    }
-
-    public String toString() {
-        return "Comment's ID: " + id + ", content: " + content + ", created: " + created + ", modified: " + modified;
     }
 }
