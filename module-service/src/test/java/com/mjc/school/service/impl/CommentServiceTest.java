@@ -110,6 +110,16 @@ class CommentServiceTest {
     }
 
     @Test
+    void create_ShouldThrow_WhenNewsNotFound() {
+        when(commentMapper.DtoCommentToModel(request)).thenReturn(comment);
+        when(newsRepository.readById(1L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> commentService.create(request))
+                .isInstanceOf(ElementNotFoundException.class)
+                .hasMessage("News with id 1 does not exist");
+    }
+
+    @Test
     void update_ShouldReturnUpdatedComment() {
         when(commentRepository.existById(1L)).thenReturn(true);
         when(commentMapper.DtoCommentToModel(request)).thenReturn(comment);
