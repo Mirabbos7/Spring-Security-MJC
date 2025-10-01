@@ -1,4 +1,5 @@
 package com.mjc.school.service.impl;
+
 import com.mjc.school.dto.CommentDtoRequest;
 import com.mjc.school.dto.CommentDtoResponse;
 import com.mjc.school.exception.ElementNotFoundException;
@@ -33,7 +34,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
 @ExtendWith(MockitoExtension.class)
 class CommentServiceTest {
 
@@ -60,11 +60,35 @@ class CommentServiceTest {
 
     @BeforeEach
     void setUp() {
-        author = new Author(1L, "John Doe", LocalDateTime.now(), LocalDateTime.now());
-        news = new News(1L, "TITLE1", "CONTENT1", author);
-        comment = new Comment(1L, "content", news, LocalDateTime.now(), LocalDateTime.now());
+        author = new Author();
+        author.setId(1L);
+        author.setName("John Doe");
+        author.setCreateDate(LocalDateTime.now());
+        author.setLastUpdateDate(LocalDateTime.now());
+
+        news = new News();
+        news.setId(1L);
+        news.setTitle("TITLE1");
+        news.setContent("CONTENT1");
+        news.setAuthorModel(author);
+        news.setCreateDate(LocalDateTime.now());
+        news.setLastUpdateDate(LocalDateTime.now());
+
+        comment = new Comment();
+        comment.setId(1L);
+        comment.setContent("CONTENT");
+        comment.setNewsModel(news);
+        comment.setCreated(LocalDateTime.now());
+        comment.setModified(LocalDateTime.now());
+
         request = new CommentDtoRequest("CONTENT", 1L);
-        response = new CommentDtoResponse(1L, "CONTENT", "2025-09-27T10:00:00", "2025-09-27T10:00:00", 1L);
+        response = new CommentDtoResponse(
+                1L,
+                "CONTENT",
+                "2025-09-27T10:00:00",
+                "2025-09-27T10:00:00",
+                1L
+        );
     }
 
     @Test
