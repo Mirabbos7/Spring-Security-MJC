@@ -59,12 +59,19 @@ public class CommentServiceImpl implements CommentService {
     public CommentDtoResponse create(CommentDtoRequest createRequest) {
         customValidator.validateComment(createRequest);
         Comment commentModel = commentMapper.DtoCommentToModel(createRequest);
-        News newsModel = newsRepository.readById(createRequest.newsId()).get();
+
+        News newsModel = newsRepository.readById(createRequest.newsId())
+                .orElseThrow(() -> new ElementNotFoundException(
+                        String.format("News with id %d does not exist", createRequest.newsId())
+                ));
+
         commentModel.setNewsModel(newsModel);
-        Comment createCommentModel = commentRepository.create(commentModel);
-        newsModel.addComment(createCommentModel);
-        return commentMapper.ModelCommentToDto(createCommentModel);
+        Comment createdComment = commentRepository.create(commentModel);
+        newsModel.addComment(createdComment);
+
+        return commentMapper.ModelCommentToDto(createdComment);
     }
+
 
     @Override
     @Transactional
