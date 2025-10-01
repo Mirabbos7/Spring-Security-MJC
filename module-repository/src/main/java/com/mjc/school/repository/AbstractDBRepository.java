@@ -44,7 +44,7 @@ public abstract class AbstractDBRepository<T extends BaseEntity<K>, K> implement
         CriteriaQuery<T> select = criteriaQuery.select(root);
         CriteriaQuery<T> ordered;
 
-        if (sort[1].equalsIgnoreCase("ASC") && sort[1] != null) {
+        if (sort[1].equalsIgnoreCase("ASC")) {
             ordered = select.orderBy(criteriaBuilder.asc(root.get(sort[0])));
         } else {
             ordered = select.orderBy(criteriaBuilder.desc(root.get(sort[0])));
@@ -57,7 +57,6 @@ public abstract class AbstractDBRepository<T extends BaseEntity<K>, K> implement
 
         }
     }
-
 
     @Override
     public Optional<T> readById(K id) {
@@ -93,7 +92,6 @@ public abstract class AbstractDBRepository<T extends BaseEntity<K>, K> implement
         }
         return false;
     }
-
 
     @Override
     public boolean existById(K id) {
