@@ -51,7 +51,12 @@ class AuthorServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        author = new Author(1L, "John Doe", LocalDateTime.now(), LocalDateTime.now());
+        author = new Author();
+        author.setId(1L);
+        author.setName("John Doe");
+        author.setCreateDate(LocalDateTime.now());
+        author.setLastUpdateDate(LocalDateTime.now());
+
         request = new AuthorDtoRequest("John Doe");
         response = new AuthorDtoResponse(
                 1L,
@@ -158,20 +163,18 @@ class AuthorServiceImplTest {
     }
 
     @Test
-    void deleteById_ShouldThrow_WhenNotExists() {
-        // given
+    void deleteById_shouldThrow_whenNotExists() {
         long id = 1L;
 
-        // when
         Throwable thrown = catchThrowable(() -> authorServiceImpl.deleteById(id));
 
-        // then
         assertThat(thrown)
                 .isInstanceOf(ElementNotFoundException.class)
                 .hasMessage(String.format(
                         "errorMessage: Author with this id: %d does not exist.,  errorCode: 40402",
                         id
-                ));    }
+                ));
+    }
 
     @Test
     void readAuthorByNewsId_ShouldReturnAuthor_WhenFound() {
@@ -192,5 +195,4 @@ class AuthorServiceImplTest {
                 .isInstanceOf(ElementNotFoundException.class)
                 .hasMessage(String.format(NO_AUTHOR_FOR_NEWS_ID.getErrorMessage(), newsId));
     }
-
 }
