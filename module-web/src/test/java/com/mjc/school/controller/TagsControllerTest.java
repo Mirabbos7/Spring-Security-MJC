@@ -1,4 +1,4 @@
-package com.mjc.school.implementation;
+package com.mjc.school.controller;
 
 import com.mjc.school.dto.TagDtoRequest;
 import com.mjc.school.dto.TagDtoResponse;
