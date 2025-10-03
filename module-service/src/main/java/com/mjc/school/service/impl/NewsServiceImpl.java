@@ -1,11 +1,5 @@
 package com.mjc.school.service.impl;
 
-import com.mjc.school.repository.impl.AuthorRepository;
-import com.mjc.school.repository.impl.NewsRepository;
-import com.mjc.school.repository.impl.TagRepository;
-import com.mjc.school.model.Author;
-import com.mjc.school.model.News;
-import com.mjc.school.model.Tag;
 import com.mjc.school.dto.NewsDtoRequest;
 import com.mjc.school.dto.NewsDtoResponse;
 import com.mjc.school.dto.NewsPageDtoResponse;
@@ -13,9 +7,16 @@ import com.mjc.school.exception.ElementNotFoundException;
 import com.mjc.school.exception.ErrorCodes;
 import com.mjc.school.exception.ValidatorException;
 import com.mjc.school.mapper.NewsMapper;
+import com.mjc.school.model.Author;
+import com.mjc.school.model.News;
+import com.mjc.school.model.Tag;
+import com.mjc.school.repository.impl.AuthorRepository;
+import com.mjc.school.repository.impl.NewsRepository;
+import com.mjc.school.repository.impl.TagRepository;
 import com.mjc.school.service.NewsService;
 import com.mjc.school.validation.CustomValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +26,7 @@ import java.util.Optional;
 
 import static com.mjc.school.exception.ErrorCodes.INVALID_VALUE_OF_SORTING;
 import static com.mjc.school.exception.ErrorCodes.NO_NEWS_WITH_PROVIDED_ID;
-import static com.mjc.school.validation.CustomValidator.AUTHOR_NAME_MAX_LENGTH;
-import static com.mjc.school.validation.CustomValidator.AUTHOR_NAME_MIN_LENGTH;
-import static com.mjc.school.validation.CustomValidator.TAG_NAME_MAX_LENGTH;
-import static com.mjc.school.validation.CustomValidator.TAG_NAME_MIN_LENGTH;
+import static com.mjc.school.validation.CustomValidator.*;
 
 @Service
 @Transactional
@@ -52,6 +50,7 @@ public class NewsServiceImpl implements NewsService<NewsDtoRequest, NewsDtoRespo
         }
     }
 
+
     @Override
     @Transactional(readOnly = true)
     public NewsDtoResponse readById(Long id) {
@@ -60,85 +59,47 @@ public class NewsServiceImpl implements NewsService<NewsDtoRequest, NewsDtoRespo
 
     }
 
+
     @Override
     @Transactional
     public NewsDtoResponse create(NewsDtoRequest createRequest) {
+        if (createRequest.authorName().isBlank()) {
+            throw new ValidatorException("Author name cannot be empty");
+        }
         customValidator.validateNews(createRequest);
-        Optional<Author> existingAuthor = authorRepository.readAuthorByName(createRequest.authorName());
-        customValidator.validateAuthorNameAndExistence(createRequest.authorName(), existingAuthor);
-
-        Author author = existingAuthor.orElseGet(() -> {
-            Author newAuthor = new Author();
-            newAuthor.setName(createRequest.authorName());
-            return authorRepository.create(newAuthor);
-        });
-
-        if (createRequest.tagNames() == null || createRequest.tagNames().isEmpty()) {
+        createNotExistAuthor(createRequest.authorName());
+        if (createRequest.tagNames() == null || createRequest.tagNames().isEmpty() || createRequest.tagNames().equals("")) {
             throw new ValidatorException("Please specify tag names");
         }
-        List<Optional<Tag>> existingTags = createRequest.tagNames().stream()
-                .map(tagRepository::readTagByName)
-                .toList();
-        customValidator.validateTagNamesAndExistence(createRequest.tagNames(), existingTags);
-
-        for (int i = 0; i < createRequest.tagNames().size(); i++) {
-            if (existingTags.get(i).isEmpty()) {
-                Tag newTag = new Tag();
-                newTag.setName(createRequest.tagNames().get(i));
-                tagRepository.create(newTag);
-            }
-        }
+        createNotExistTags(createRequest.tagNames());
 
         if (newsRepository.readNewsByTitle(createRequest.title()).isPresent()) {
             throw new ValidatorException("Title of news must be unique");
         }
-
         News newsModel = newsMapper.DTONewsToModel(createRequest);
-        newsModel.setAuthorModel(author);
         return newsMapper.ModelNewsToDTO(newsRepository.create(newsModel));
     }
+
 
     @Override
     @Transactional
     public NewsDtoResponse update(Long id, NewsDtoRequest updateRequest) {
-        if (!newsRepository.existById(id)) {
+        if (newsRepository.existById(id)) {
+            customValidator.validateNews(updateRequest);
+            createNotExistAuthor(updateRequest.authorName());
+            createNotExistTags(updateRequest.tagNames());
+            if (newsRepository.readNewsByTitle(updateRequest.title()).isPresent()) {
+                throw new ValidatorException("Title of news must be unique");
+            }
+            News newsModel = newsMapper.DTONewsToModel(updateRequest);
+            newsModel.setId(id);
+
+            return newsMapper.ModelNewsToDTO(newsRepository.update(newsModel));
+        } else {
             throw new ElementNotFoundException(String.format(NO_NEWS_WITH_PROVIDED_ID.getErrorMessage(), id));
         }
 
-        customValidator.validateNews(updateRequest);
-        Optional<Author> existingAuthor = authorRepository.readAuthorByName(updateRequest.authorName());
-        customValidator.validateAuthorNameAndExistence(updateRequest.authorName(), existingAuthor);
-
-        Author author = existingAuthor.orElseGet(() -> {
-            Author newAuthor = new Author();
-            newAuthor.setName(updateRequest.authorName());
-            return authorRepository.create(newAuthor);
-        });
-
-        List<Optional<Tag>> existingTags = updateRequest.tagNames().stream()
-                .map(tagRepository::readTagByName)
-                .toList();
-
-        customValidator.validateTagNamesAndExistence(updateRequest.tagNames(), existingTags);
-
-        for (int i = 0; i < updateRequest.tagNames().size(); i++) {
-            if (existingTags.get(i).isEmpty()) {
-                Tag newTag = new Tag();
-                newTag.setName(updateRequest.tagNames().get(i));
-                tagRepository.create(newTag);
-            }
-        }
-
-        if (newsRepository.readNewsByTitle(updateRequest.title()).isPresent()) {
-            throw new ValidatorException("Title of news must be unique");
-        }
-
-        News newsModel = newsMapper.DTONewsToModel(updateRequest);
-        newsModel.setId(id);
-        newsModel.setAuthorModel(author);
-        return newsMapper.ModelNewsToDTO(newsRepository.update(newsModel));
     }
-
 
     @Override
     @Transactional
@@ -183,6 +144,5 @@ public class NewsServiceImpl implements NewsService<NewsDtoRequest, NewsDtoRespo
         }).forEach(tagRepository::create);
     }
 }
-
 
 

@@ -2,12 +2,9 @@ package com.mjc.school.repository.impl;
 
 
 import com.mjc.school.model.Author;
-
-
 import com.mjc.school.repository.AbstractDBRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +14,13 @@ public class AuthorRepository extends AbstractDBRepository<Author, Long> {
     @Override
     public List<Author> readAll(int page, int size, String sortBy) {
         if (sortBy.split(",")[0].equals("newsCount")) {
-            String str = "SELECT a FROM Author a JOIN a.newsModelListWithId b GROUP BY a ORDER BY COUNT(b)" + sortBy.split(",")[1];
+            String str = "SELECT a FROM AuthorModel a JOIN a.newsModelListWithId b GROUP BY a ORDER BY COUNT(b)" + sortBy.split(",")[1];
             return entityManager.createQuery(str).getResultList();
         }
         return super.readAll(page, size, sortBy);
     }
 
+    @Override
     public void update(Author prevState, Author nextState) {
         if (nextState.getName() != null && !nextState.getName().isBlank()) {
             prevState.setName(nextState.getName());
@@ -37,7 +35,7 @@ public class AuthorRepository extends AbstractDBRepository<Author, Long> {
         TypedQuery<Author> typedQuery = entityManager.createQuery("SELECT a FROM Author a WHERE a.name LIKE:name", Author.class).setParameter("name",  name );
         try {
             return Optional.of(typedQuery.getSingleResult());
-        } catch (NoResultException e) {
+        } catch (Exception e) {
             return Optional.empty();
         }
     }
