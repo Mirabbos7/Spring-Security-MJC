@@ -1,0 +1,136 @@
+body{
+    background-color: #a9bffa;
+}
+.navbar{
+    color: white;
+}
+.search{
+    margin-top: 100px;
+    width: 610px;
+    height: 45px;
+    border: none;
+    border-radius: 25px;
+}
+.add-news{
+    width: 100px;
+    height: 45px;
+    background-color: #284fda;
+    color: white;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+.news-count{
+    margin-right: 620px;
+    margin-top: 20px;
+}
+.select{
+    margin-left: 570px;
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    color: grey;
+    text-align: center;
+    margin-top: -20px;
+    border: none;
+}
+.box{
+    width: 206px;
+    height: 250px;
+    float: left;
+    margin-top: 40px;
+    margin-left: 50px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 3px 3px 3px grey;
+}
+.box-inner{
+    width: 180px;
+}
+.content{
+    text-align: left;
+}
+.author{
+    color: grey;
+    font-size: 15px;
+    float: left;
+}
+.author-name{
+    margin-right: 80px;
+    float: left;
+}
+.tags{
+    color: grey;
+    font-size: 15px;
+    float: left;
+}
+.create-date{
+    color: grey;
+    font-size: 14px;
+    text-shadow: 0 4px 6px gray;
+}
+.tags-sport{
+    width: 60px;
+    height: 22px;
+    border-radius: 9px;
+    border: 1px solid blue;
+    color: #0d6efd;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 85px;
+    margin-right: 150px;
+}
+.tags-tennis{
+    width: 60px;
+    height: 22px;
+    border-radius: 9px;
+    border: 1px solid blue;
+    color: #0d6efd;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    margin-top: -22px;
+    margin-left: 20px;
+}
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: -50px;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.pagination .page-number {
+    font-size: 16px;
+    font-weight: 600;
+    color: #00a8ff;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.pagination .page-number:hover {
+    color: #fff;
+    background: #00a8ff;
+}
+
+.pagination .active {
+    color: #fff;
+    background: #00a8ff;
+}
+
+.pagination .active:hover {
+    color: #00a8ff;
+    background: #fff;
+}
+
+.form-select{
+    width: 70px;
+    height: 40px;
+    margin-left: 620px;
+    margin-top: -55px;
+}

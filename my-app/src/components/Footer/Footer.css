@@ -1,0 +1,14 @@
+.footer {
+    background-color: #071f36;
+    color: grey;
+    text-align: center;
+    position: fixed;
+    height: 50px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.footer h5 {
+    margin-top: 1%;
+}
