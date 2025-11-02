@@ -6,18 +6,19 @@ import com.mjc.school.repository.impl.TagRepository;
 import com.mjc.school.model.News;
 import com.mjc.school.dto.NewsDtoRequest;
 import com.mjc.school.dto.NewsDtoResponse;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {TagMapper.class, CommentMapper.class, AuthorMapper.class})
-@AllArgsConstructor
-@NoArgsConstructor
 public abstract class NewsMapper {
+
+    @Autowired
     protected AuthorRepository authorRepository;
+
+    @Autowired
     protected TagRepository tagRepository;
 
     @Mapping(target = "createDate", ignore = true)
