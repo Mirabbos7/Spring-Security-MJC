@@ -9,6 +9,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<?> handleException(RuntimeException ex) {
+        return ResponseEntity.internalServerError().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public ResponseEntity<?> usernameAlreadyExistsException(UsernameAlreadyExistsException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }
