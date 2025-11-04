@@ -32,26 +32,5 @@ public class TagRepository extends AbstractDBRepository<Tag, Long> {
             prevState.setName(nextState.getName());
         }
     }
-
-    @Override
-    public boolean deleteById(Long id) {
-        if (id != null) {
-            Tag tag = entityManager.find(Tag.class, id);
-            if (tag != null) {
-                try {
-                    // Break many-to-many relation
-                    tag.getNews().forEach(news -> news.getTags().remove(tag));
-                    tag.getNews().clear();
-
-                    entityManager.remove(tag);
-                    return true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
 }
 

@@ -1,6 +1,5 @@
 package com.mjc.school.security.service;
 
-import com.mjc.school.exception.UsernameAlreadyExistsException;
 import com.mjc.school.model.Role;
 import com.mjc.school.model.User;
 import com.mjc.school.repository.UserRepository;
@@ -29,7 +28,7 @@ public class AuthenticationService {
         String encodedPassword = passwordEncoder.encode(rawPassword);
 
         if (userRepository.findByUsername(request.username()).isPresent()) {
-            throw new UsernameAlreadyExistsException("User " + request.username() + " already exist");
+            throw new UsernameNotFoundException("User " + request.username() + " already exist");
         }
         var userModel = User.builder()
                 .username(request.username())

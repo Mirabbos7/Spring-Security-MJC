@@ -12,4 +12,6 @@ public record NewsDtoResponse(
         AuthorDtoResponse authorDtoResponse,
         List<TagDtoResponse> tagList,
         List<CommentDtoResponse> commentList) {
+
+
 }

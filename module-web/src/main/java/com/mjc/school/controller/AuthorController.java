@@ -71,7 +71,7 @@ public class AuthorController implements BaseController<AuthorDtoRequest, Author
     }
 
     @Override
-    @PostMapping("/create")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create an author", response = AuthorDtoResponse.class)
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")

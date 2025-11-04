@@ -24,6 +24,7 @@ import javax.validation.Valid;
 
 @Component
 @RestController
+@RequestMapping(produces = "application/json")
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authService;
