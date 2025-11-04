@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import "./SignIn.css"
-import {Container, Button, Row, Col, Form} from "react-bootstrap";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import "./SignIn.css";
 import { login } from "../../services/auth";
 import { useNavigate } from 'react-router-dom';
 
@@ -10,10 +7,8 @@ const SignIn = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-
-    console.log("SignIn component rendered");
-    console.log("Navigate function:", navigate);
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -22,99 +17,145 @@ const SignIn = () => {
         } else {
             setPassword(value);
         }
+        // Clear error when user starts typing
+        if (error) setError('');
     };
 
-    const onLoginClick = () => {
-        console.log("Login button clicked");
-        console.log("Username:", username);
-        console.log("Password length:", password.length);
+    const onLoginClick = async (e) => {
+        e.preventDefault();
 
+        // Validation
         if (username.length === 0 || password.length === 0) {
-            setError("Fill in blanks fields");
+            setError("Fill in blank fields");
             return;
-        } else if (username.length < 3 || username.length > 30) {
-            setError("User name length must not be less than 3 and greater than 30");
+        }
+        if (username.length < 3 || username.length > 30) {
+            setError("Username must be between 3 and 30 characters");
             return;
-        } else if (password.length < 4 || password.length > 30) {
-            setError("Password length must not be less than 4 and greater than 30");
+        }
+        if (password.length < 4 || password.length > 30) {
+            setError("Password must be between 4 and 30 characters");
             return;
         }
 
         setError("");
-        console.log("Starting login request...");
+        setLoading(true);
 
-        login(username, password)
-            .then((data) => {
-                console.log("Login SUCCESS - Full response:", data);
-                console.log("Token exists?", !!(data && (data.token || data.accessToken)));
+        try {
+            const data = await login(username, password);
 
-                if (data && (data.token || data.accessToken)) {
-                    console.log("About to navigate to /news");
-                    console.log("LocalStorage before nav:", localStorage.getItem("user"));
+            if (data && (data.token || data.accessToken)) {
+                navigate("/news");
+            } else {
+                setError("Invalid response from server");
+            }
+        } catch (error) {
+            console.error("Login failed:", error);
 
-                    // Try direct navigation
-                    navigate("/news");
+            if (error.response) {
+                setError(error.response.data.message || "Invalid credentials");
+            } else if (error.request) {
+                setError("Cannot connect to server");
+            } else {
+                setError("Login failed. Please try again");
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
 
-                    console.log("Navigate called");
-                    console.log("Current URL:", window.location.href);
-                } else {
-                    console.error("No token found in response");
-                    setError("Invalid response from server.");
-                }
-            })
-            .catch((error) => {
-                console.error("Login FAILED - Error:", error);
-                console.error("Error response:", error.response);
-
-                if (error.response) {
-                    setError(error.response.data.message || "Login failed. Please check your credentials.");
-                } else if (error.request) {
-                    setError("Cannot connect to server.");
-                } else {
-                    setError("Login failed. Please try again.");
-                }
-            });
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            onLoginClick(e);
+        }
     };
 
     return (
-        <Container>
-            <Header />
-
-            <Row>
-                <Col md="4">
-                    <div className="body-div">
-                        <h1 className="login-heading">Login</h1>
-                        <Form className="form">
-                            <Form.Group controlId="usernameId" className="form-group">
-                                <Form.Control
-                                    type="text"
-                                    name="username"
-                                    placeholder="Username"
-                                    value={username}
-                                    onChange={onChange}
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="passwordId" className="form-group">
-                                <Form.Control
-                                    type="password"
-                                    name="password"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={onChange}
-                                />
-                            </Form.Group>
-                        </Form>
-                        <div className="div-button">
-                            <Button color="primary" className="login-button" onClick={onLoginClick}>SIGN IN</Button>
-                            <p className="login-error">{error}</p>
-                        </div>
+        <div className="signin-page">
+            {/* Header */}
+            <header className="signin-header">
+                <div className="header-content">
+                    <div className="logo-section">
+                        <img
+                            src={require("../../assets/img/news-book.png")}
+                            alt="News Management"
+                            className="logo-img"
+                        />
+                        <span className="logo-text">News Management</span>
                     </div>
-                </Col>
-            </Row>
+                    <nav className="nav-links">
+                        <a href="/">HOME</a>
+                        <a href="/news">NEWS</a>
+                        <a href="/about">ABOUT</a>
+                        <a href="/signin" className="active">SIGN IN</a>
+                        <a href="/signup">SIGN UP</a>
+                    </nav>
+                </div>
+            </header>
 
-            <Footer />
-        </Container>
+            {/* Login Form */}
+            <div className="signin-container">
+                <div className="login-card">
+                    <h1 className="login-title">Login</h1>
+
+                    <form onSubmit={onLoginClick} className="login-form">
+                        <div className="form-field">
+                            <label htmlFor="username">Username</label>
+                            <input
+                                id="username"
+                                type="text"
+                                name="username"
+                                placeholder="Enter your username"
+                                value={username}
+                                onChange={onChange}
+                                onKeyPress={handleKeyPress}
+                                autoComplete="username"
+                                disabled={loading}
+                            />
+                        </div>
+
+                        <div className="form-field">
+                            <label htmlFor="password">Password</label>
+                            <input
+                                id="password"
+                                type="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                value={password}
+                                onChange={onChange}
+                                onKeyPress={handleKeyPress}
+                                autoComplete="current-password"
+                                disabled={loading}
+                            />
+                        </div>
+
+                        {error && (
+                            <div className="error-message">
+                                {error}
+                            </div>
+                        )}
+
+                        <button
+                            type="submit"
+                            className="signin-button"
+                            disabled={loading}
+                        >
+                            {loading ? 'SIGNING IN...' : 'SIGN IN'}
+                        </button>
+                    </form>
+
+                    <div className="signup-link">
+                        Don't have an account? <a href="/signup">Sign up</a>
+                    </div>
+                </div>
+            </div>
+
+            {/* Footer */}
+            <footer className="signin-footer">
+                © 2025 MJC School Student. All Rights Reserved
+            </footer>
+        </div>
     );
-}
+};
 
 export default SignIn;

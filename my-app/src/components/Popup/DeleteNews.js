@@ -1,57 +1,68 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import axios from "axios";
+import React from 'react';
+import './DeleteNews.css';
 
-function DeleteNews(props) {
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+const DeleteNews = ({ news, onDelete, onClose }) => {
+    const getAuthToken = () => {
+        const userData = localStorage.getItem('user');
+        if (!userData) return null;
+        try {
+            const parsed = JSON.parse(userData);
+            return parsed.token || parsed.accessToken;
+        } catch {
+            return null;
+        }
+    };
 
-    const deleteNews = () => {
-        axios.delete("http://localhost:8082/news/id/" + props.id)
-            .then(response => {
-                console.log(response.data);
-            })
-        setShow(false)
-        window.location.reload();
-    }
+    const handleDelete = async () => {
+        const token = getAuthToken();
+
+        try {
+            const response = await fetch(`http://localhost:8082/api/v1/news/${news.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok || response.status === 204) {
+                onDelete(news.id);
+            } else {
+                console.error('Failed to delete news');
+                alert('Failed to delete news. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error deleting news:', error);
+            alert('An error occurred while deleting the news.');
+        }
+    };
 
     return (
-        <>
-            <img
-                src={require("../../assets/img/basket.png")}
-                style={{float: "right", cursor: "pointer"}}
-                alt="basket icone"
-                onClick={handleShow}
-            />
+        <div className="delete-modal-overlay" onClick={onClose}>
+            <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
+                <button className="delete-modal-close" onClick={onClose}>
+                    ✕
+                </button>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        <img
-                            src={require("../../assets/img/basket1.png")}
-                            style={{marginLeft: "200px"}}
-                            alt="basket icone"
-                        />
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <center>
-                        <h4>Do you really want to delete this news?</h4>
-                    </center>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" style={{marginRight: "315px"}} onClick={handleClose}>
+                <div className="delete-modal-icon">
+                    🗑️
+                </div>
+
+                <h2 className="delete-modal-title">
+                    Do you really want to delete this news?
+                </h2>
+
+                <div className="delete-modal-actions">
+                    <button className="delete-modal-cancel" onClick={onClose}>
                         Cancel
-                    </Button>
-                    <Button variant="danger" onClick={deleteNews}>
+                    </button>
+                    <button className="delete-modal-delete" onClick={handleDelete}>
                         Delete
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </>
+                    </button>
+                </div>
+            </div>
+        </div>
     );
-}
+};
 
 export default DeleteNews;

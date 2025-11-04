@@ -1,0 +1,87 @@
+.delete-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.delete-modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.delete-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.delete-modal-close:hover {
+    color: #333;
+}
+
+.delete-modal-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.delete-modal-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.delete-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.delete-modal-cancel,
+.delete-modal-delete {
+    padding: 10px 30px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.delete-modal-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.delete-modal-cancel:hover {
+    background-color: #5a6268;
+}
+
+.delete-modal-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-modal-delete:hover {
+    background-color: #c82333;
+}

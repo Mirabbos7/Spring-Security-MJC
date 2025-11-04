@@ -1,0 +1,182 @@
+.edit-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.edit-modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    margin: auto;
+}
+
+.edit-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.edit-modal-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+}
+
+.edit-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.edit-modal-close:hover {
+    color: #333;
+}
+
+.edit-modal-body {
+    padding: 30px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.edit-form-group {
+    margin-bottom: 20px;
+}
+
+.edit-form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.edit-form-input,
+.edit-form-textarea,
+.edit-form-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.edit-form-input:focus,
+.edit-form-textarea:focus,
+.edit-form-select:focus {
+    outline: none;
+    border-color: #4169E1;
+}
+
+.edit-form-textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+.edit-tags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit-tag-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.edit-tag-checkbox:hover {
+    background-color: #f8f9fa;
+}
+
+.edit-tag-checkbox input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.edit-tag-checkbox input[type="checkbox"]:checked + .edit-tag-label {
+    color: #4169E1;
+    font-weight: 600;
+}
+
+.edit-tag-label {
+    font-size: 14px;
+    color: #333;
+}
+
+.edit-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 20px 30px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.edit-modal-cancel,
+.edit-modal-save {
+    padding: 10px 30px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.edit-modal-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.edit-modal-cancel:hover {
+    background-color: #5a6268;
+}
+
+.edit-modal-save {
+    background-color: #4169E1;
+    color: white;
+}
+
+.edit-modal-save:hover {
+    background-color: #3158d4;
+}
+
+.edit-modal-loading,
+.edit-modal-error {
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+}
+
+.edit-modal-error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border-radius: 6px;
+    margin: 20px 30px;
+}

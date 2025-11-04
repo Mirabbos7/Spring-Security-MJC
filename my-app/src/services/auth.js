@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8082/";
 
+// Register a new user
 export const register = (username, password) => {
     console.log("Register service called with:", { username });
 
@@ -19,6 +20,7 @@ export const register = (username, password) => {
         });
 };
 
+// Login user
 export const login = (username, password) => {
     console.log("Auth service - login called with:", username);
 
@@ -33,7 +35,14 @@ export const login = (username, password) => {
 
             if (response.data && (response.data.token || response.data.accessToken)) {
                 console.log("Auth service - Saving to localStorage");
-                localStorage.setItem("user", JSON.stringify(response.data));
+
+                // Store user data with token
+                const userData = {
+                    ...response.data,
+                    username: username
+                };
+
+                localStorage.setItem("user", JSON.stringify(userData));
                 console.log("Auth service - Saved:", localStorage.getItem("user"));
             } else {
                 console.warn("Auth service - No token in response!");
@@ -47,11 +56,46 @@ export const login = (username, password) => {
         });
 };
 
+// Logout user
 export const logout = () => {
+    console.log("Logging out user...");
     localStorage.removeItem("user");
     window.location.href = "/";
 };
 
+// Get current logged in user
 export const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"));
+    try {
+        const userData = localStorage.getItem("user");
+        return userData ? JSON.parse(userData) : null;
+    } catch (error) {
+        console.error("Error getting current user:", error);
+        return null;
+    }
+};
+
+// Check if user is authenticated
+export const isAuthenticated = () => {
+    const userData = localStorage.getItem('user');
+    if (!userData) return false;
+
+    try {
+        const parsed = JSON.parse(userData);
+        return !!(parsed.token || parsed.accessToken);
+    } catch {
+        return false;
+    }
+};
+
+// Get authentication token
+export const getAuthToken = () => {
+    const userData = localStorage.getItem('user');
+    if (!userData) return null;
+
+    try {
+        const parsed = JSON.parse(userData);
+        return parsed.token || parsed.accessToken;
+    } catch {
+        return null;
+    }
 };
