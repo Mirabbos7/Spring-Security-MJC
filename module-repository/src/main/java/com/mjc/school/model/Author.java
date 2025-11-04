@@ -1,5 +1,6 @@
 package com.mjc.school.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -55,6 +56,7 @@ public class Author implements BaseEntity<Long> {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime lastUpdateDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "authorModel", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<News> newsModelListWithId = new ArrayList<>();
 
