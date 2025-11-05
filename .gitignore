@@ -1,3 +1,5 @@
+/media
+/gradle/wrapper
 /.gradle/
 /.idea/
 /build/
